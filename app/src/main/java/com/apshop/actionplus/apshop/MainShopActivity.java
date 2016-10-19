@@ -25,15 +25,15 @@ public class MainShopActivity extends AppCompatActivity {
 
     private ListView productListV;
     private Product product_data[];
+    ImageButton menuBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_shop);
 
-        ImageButton menuBtn = (ImageButton)findViewById(R.id.menuBtn);
-        menuBtn.requestLayout();
-        menuBtn.getLayoutParams().width = menuBtn.getLayoutParams().height;
+        menuBtn = (ImageButton)findViewById(R.id.menuBtn);
+        menuBtn.setTag("1");
 
 
         String filename = "ProductData.txt";
@@ -206,6 +206,20 @@ public class MainShopActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ProductFullView.class);
                 intent.putExtra("item",Integer.toString(position));
                 startActivity(intent);
+            }
+        });
+
+        menuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(menuBtn.getTag()==("1")) {
+                    menuBtn.setBackgroundResource(R.drawable.exitbtnimg);
+                    menuBtn.setTag("2");
+                }else{
+                    menuBtn.setBackgroundResource(R.drawable.menubtnimg);
+                    menuBtn.setTag("1");
+                }
             }
         });
 
