@@ -4,6 +4,8 @@ import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +17,15 @@ import java.io.InputStreamReader;
 public class ProductFullView extends AppCompatActivity {
 
     int ProductNum = 0;
+    ImageButton exitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_full_view);
         ProductNum = Integer.parseInt(getIntent().getExtras().getString("item"));
+
+        exitBtn = (ImageButton)findViewById(R.id.exitItemBtn);
 
         ImageView productImg = (ImageView)findViewById(R.id.imagePFV);
         TextView productTitle = (TextView)findViewById(R.id.titlePFVTV);
@@ -113,5 +118,13 @@ public class ProductFullView extends AppCompatActivity {
         }catch (Exception e) {
             e.printStackTrace();
         }
+
+        exitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
     }
 }

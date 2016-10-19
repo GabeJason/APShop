@@ -17,11 +17,10 @@
         android:id="@+id/customABPFVL">
 
         <ImageButton
-            android:layout_height="match_parent"
-            android:background="@android:drawable/ic_menu_sort_by_size"
-            android:layout_weight="3"
-            android:scaleType="fitXY"
-            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/exitbtnimg"
+            android:layout_width="40dp"
+            android:layout_margin="10dp"
             android:id="@+id/exitItemBtn" />
 
         <TextView
@@ -30,7 +29,6 @@
             android:text="Action Plus"
             android:textSize="30sp"
             android:textColor="@color/whitecolor"
-            android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
