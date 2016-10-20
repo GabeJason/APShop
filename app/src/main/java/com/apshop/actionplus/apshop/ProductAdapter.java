@@ -26,6 +26,13 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         this.data = data;
     }
 
+    public ProductAdapter(ProductAdapter adapter) {
+        super(adapter.context, adapter.layoutResourceId, adapter.data);
+        this.layoutResourceId = adapter.layoutResourceId;
+        this.context = adapter.context;
+        this.data = adapter.data;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;

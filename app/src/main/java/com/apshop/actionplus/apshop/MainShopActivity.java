@@ -1,16 +1,26 @@
 package com.apshop.actionplus.apshop;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.CountDownTimer;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 import java.io.BufferedReader;
@@ -26,6 +36,13 @@ public class MainShopActivity extends AppCompatActivity {
     private ListView productListV;
     private Product product_data[];
     ImageButton menuBtn;
+    RelativeLayout menuLay;
+    LinearLayout menuBarView;
+    EditText searchText;
+    Button searchBtn;
+    int prodSearchCount;
+    int checkProd[];
+    ProductAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +51,12 @@ public class MainShopActivity extends AppCompatActivity {
 
         menuBtn = (ImageButton)findViewById(R.id.menuBtn);
         menuBtn.setTag("1");
+
+        searchText =(EditText)findViewById(R.id.searchET);
+        searchBtn = (Button)findViewById(R.id.searchBtn);
+
+        menuLay = (RelativeLayout)findViewById(R.id.menuBarLay);
+        menuBarView = (LinearLayout)findViewById(R.id.actualMenuView);
 
 
         String filename = "ProductData.txt";
@@ -194,7 +217,7 @@ public class MainShopActivity extends AppCompatActivity {
 
         }
 
-        ProductAdapter adapter = new ProductAdapter(this, R.layout.row, product_data);
+        adapter = new ProductAdapter(this, R.layout.row, product_data);
 
         productListV = (ListView)findViewById(R.id.mainProductLV);
 
@@ -216,12 +239,141 @@ public class MainShopActivity extends AppCompatActivity {
                 if(menuBtn.getTag()==("1")) {
                     menuBtn.setBackgroundResource(R.drawable.exitbtnimg);
                     menuBtn.setTag("2");
+                    menuLay.setVisibility(View.VISIBLE);
+                    //newTimer();
+                   // menuBarView.animate().translationX(500);
                 }else{
                     menuBtn.setBackgroundResource(R.drawable.menubtnimg);
                     menuBtn.setTag("1");
+                    menuLay.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkProd = new int[product_data.length];
+                String searchTxt = String.valueOf(searchText.getText());
+                Log.i("Search Text", searchTxt);
+
+                if(!searchTxt.equals("")) {
+                    prodSearchCount = 0;
+
+                    for (int i = 0; i < product_data.length; i++) {
+                        Log.i("Product Num", Integer.toString(i));
+                        compString(product_data[i].title.toUpperCase(), searchTxt.toUpperCase(), i);
+
+                    }
+
+                    Product tempProductList[] = new Product[prodSearchCount];
+
+                    prodSearchCount = 0;
+
+                    for (int r = 0; r < product_data.length; r++) {
+                        if (checkProd[r] == 1) {
+                            tempProductList[prodSearchCount] = product_data[r];
+                            prodSearchCount = prodSearchCount + 1;
+                        }
+                    }
+
+                    if(prodSearchCount != 0) {
+                        adapter.data = tempProductList;
+
+                        ProductAdapter tempAdapt = new ProductAdapter(adapter);
+
+                        productListV.setAdapter(tempAdapt);
+                    }else{
+                        //
+                        //
+                        // WHAT WILL HAPPEN IF NO SEARCH RESULTS
+                        //
+                        //
+                    }
+
+                    menuBtn.setBackgroundResource(R.drawable.menubtnimg);
+                    menuBtn.setTag("1");
+                    menuLay.setVisibility(View.GONE);
+                }else{
+                    adapter.data = product_data;
+                    productListV.setAdapter(adapter);
                 }
             }
         });
 
     }
+
+    int counter;
+
+    public void newTimer(){
+        final ViewGroup.LayoutParams params = menuBarView.getLayoutParams();
+         counter = 0;
+        final int pixel = (int)convertDpToPixel(6, getApplicationContext());
+        new CountDownTimer(600, 20){
+
+            public void onTick(long millisUntilFinished) {
+                counter = counter + pixel;
+                params.width = counter;
+                menuBarView.setLayoutParams(params);
+            }
+
+            public void onFinish() {
+                menuLay.setBackgroundResource(R.drawable.graybackground);
+            }
+        }.start();
+
+    }
+
+    public static float convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+    public void compString(String one, String two, int w){
+        boolean check = false;
+
+        for (int i = 0; i < one.length(); i++){
+            if (one.charAt(i) == two.charAt(0)){
+                Log.i("Letter Compare", "true");
+                for (int p = 1; p < two.length(); p++){
+                    Log.i("Next Letter Compare", "true");
+                    if(i+p < one.length()) {
+                        if (one.charAt(i + p) != two.charAt(p)) {
+                            check = false;
+                            Log.i("Check", "false");
+                            p = two.length();
+                        } else if (p == two.length() - 1) {
+                            check = true;
+                            Log.i("Check", "true");
+                            i = one.length();
+                        }
+                    }
+                }
+            }
+        }
+
+        if(check){
+            checkProd[w] = 1;
+            prodSearchCount = prodSearchCount + 1;
+            Log.i("CheckProd", "1");
+        }else{
+            checkProd[w] = 0;
+            Log.i("CheckProd", "0");
+        }
+
+    }
 }
+
+//////////////////////////////////////////
+//
+//   BUGS TO FIX
+//
+//  1. Product Full View Display Proper product after search
+//  2. Background behind listview is gray change that
+//  3. Keyboard stays after search
+//  4. What happens if no search results
+//  5. Properly clear search
+//
+//////////////////////////////////////////
