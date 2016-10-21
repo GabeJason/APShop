@@ -50,7 +50,7 @@ public class ProductFullView extends AppCompatActivity {
                         lines = lines + 1;
                         line = reader.readLine();
                     }
-                    lines = lines / 4;
+                    lines = lines / 5;
 
                     Log.i("Lines", Integer.toString(lines));
                 } else {
@@ -62,6 +62,7 @@ public class ProductFullView extends AppCompatActivity {
                     String pTitle = "";
                     String pSrtDesc = "";
                     String sysProdNum = "";
+                    String pCategory = "";
                     int pCount = 0;
                     int iCount = 0;
                     while (line != null) {
@@ -85,11 +86,15 @@ public class ProductFullView extends AppCompatActivity {
                                     sysProdNum = line;
                                     Log.i("pProdNum", sysProdNum);
                                     break;
+                                case 4:
+                                    pCategory = line;
+                                    Log.i("pCategory", pCategory);
+                                    break;
                             }
                         }
                         Log.i("pCount",Integer.toString(pCount));
                         Log.i("iCount",Integer.toString(iCount));
-                        if (pCount == 3) {
+                        if (pCount == 4) {
                             Log.i("ProNum", Integer.toString(iCount));
                             iCount = iCount + 1;
                             pCount = 0;

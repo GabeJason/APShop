@@ -65,6 +65,7 @@
         android:layout_below="@id/customABMVL"
         android:visibility="gone"
         android:id="@+id/menuBarLay"
+        android:background="@drawable/graybackground"
         android:elevation="1dp">
         
         <LinearLayout
@@ -74,13 +75,32 @@
             android:layout_alignParentEnd="true"
             android:background="@color/whitecolor"
             android:id="@+id/actualMenuView"
-            android:animateLayoutChanges="false">
+            android:animateLayoutChanges="false"
+            android:padding="5dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/searchET"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:theme="@style/editTextStyle"/>
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:tag="1"
+                android:id="@+id/categorySwitchBtn"
+                android:background="@drawable/categoryclose" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Drinkware"
+                android:id="@+id/drinkwareCK"
+                android:visibility="gone"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:theme="@style/checkBoxStyle"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

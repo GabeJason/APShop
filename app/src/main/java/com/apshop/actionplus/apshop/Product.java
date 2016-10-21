@@ -10,16 +10,18 @@ public class Product {
     String title;
     String shortDesc;
     String productSystNum;
+    String category;
 
     public Product(){
         super();
     }
 
-    public Product(int inImage, String inTitle, String inShortDesc, String inProductSystNum){
+    public Product(int inImage, String inTitle, String inShortDesc, String inProductSystNum, String inCategory){
         super();
         image = inImage;
         title = inTitle;
         shortDesc = inShortDesc;
         productSystNum = inProductSystNum;
+        category = inCategory;
     }
 }
