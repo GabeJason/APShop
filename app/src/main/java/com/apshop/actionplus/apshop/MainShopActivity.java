@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,10 +41,11 @@ public class MainShopActivity extends AppCompatActivity {
     RelativeLayout menuLay;
     LinearLayout menuBarView;
     EditText searchText;
-    Button searchBtn;
+    Button searchBtn, clearSearchBtn;
     int prodSearchCount;
     int checkProd[];
     ProductAdapter adapter;
+    TextView noSearchResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +57,18 @@ public class MainShopActivity extends AppCompatActivity {
 
         searchText =(EditText)findViewById(R.id.searchET);
         searchBtn = (Button)findViewById(R.id.searchBtn);
+        clearSearchBtn = (Button)findViewById(R.id.clearSearchBtn);
 
         menuLay = (RelativeLayout)findViewById(R.id.menuBarLay);
         menuBarView = (LinearLayout)findViewById(R.id.actualMenuView);
+
+        noSearchResults = (TextView)findViewById(R.id.noResultsTxt);
 
 
         String filename = "ProductData.txt";
         File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
         Log.i("FilePath",dataFile.getAbsolutePath());
+        dataFile.delete();
 
         if (!dataFile.exists()){
 
@@ -226,9 +233,30 @@ public class MainShopActivity extends AppCompatActivity {
         productListV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent = new Intent(getApplicationContext(), ProductFullView.class);
-                intent.putExtra("item",Integer.toString(position));
+
+                if(checkProd != null) {
+                    int c = 0;
+                    for (int i = 0; i < checkProd.length; i++) {
+                        if (c == position && checkProd[i] == 1) {
+                            intent.putExtra("item", Integer.toString(i));
+                            break;
+                        }
+                        if (checkProd[i] == 1) {
+                            c = c + 1;
+                        }
+                    }
+                    if(c == 0){
+                        intent.putExtra("item", Integer.toString(position));
+                    }
+                }else{
+                    intent.putExtra("item", Integer.toString(position));
+                }
+
                 startActivity(intent);
+                Log.i("ID OnClick", Long.toString(id));
+
             }
         });
 
@@ -250,15 +278,32 @@ public class MainShopActivity extends AppCompatActivity {
             }
         });
 
+        clearSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchText.setText("");
+                adapter.data = product_data;
+                productListV.setAdapter(adapter);
+                menuBtn.setBackgroundResource(R.drawable.menubtnimg);
+                menuBtn.setTag("1");
+                menuLay.setVisibility(View.GONE);
+                checkProd = null;
+                noSearchResults.setVisibility(View.GONE);
+                productListV.setVisibility(View.VISIBLE);
+                hideSoftKeyboard();
+            }
+        });
+
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkProd = new int[product_data.length];
+
                 String searchTxt = String.valueOf(searchText.getText());
                 Log.i("Search Text", searchTxt);
 
                 if(!searchTxt.equals("")) {
                     prodSearchCount = 0;
+                    checkProd = new int[product_data.length];
 
                     for (int i = 0; i < product_data.length; i++) {
                         Log.i("Product Num", Integer.toString(i));
@@ -284,6 +329,12 @@ public class MainShopActivity extends AppCompatActivity {
 
                         productListV.setAdapter(tempAdapt);
                     }else{
+
+
+                        noSearchResults.setText("No Results found for: " + searchTxt);
+                        noSearchResults.setVisibility(View.VISIBLE);
+                        productListV.setVisibility(View.GONE );
+                        hideSoftKeyboard();
                         //
                         //
                         // WHAT WILL HAPPEN IF NO SEARCH RESULTS
@@ -297,7 +348,15 @@ public class MainShopActivity extends AppCompatActivity {
                 }else{
                     adapter.data = product_data;
                     productListV.setAdapter(adapter);
+                    menuBtn.setBackgroundResource(R.drawable.menubtnimg);
+                    menuBtn.setTag("1");
+                    menuLay.setVisibility(View.GONE);
+                    checkProd = null;
+                    noSearchResults.setVisibility(View.GONE);
+                    productListV.setVisibility(View.VISIBLE);
                 }
+
+                hideSoftKeyboard();
             }
         });
 
@@ -364,16 +423,23 @@ public class MainShopActivity extends AppCompatActivity {
         }
 
     }
+
+    public void hideSoftKeyboard() {
+        if(getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
 }
 
 //////////////////////////////////////////
 //
 //   BUGS TO FIX
 //
-//  1. Product Full View Display Proper product after search
-//  2. Background behind listview is gray change that
-//  3. Keyboard stays after search
-//  4. What happens if no search results
-//  5. Properly clear search
+//  1.
+//  2.
+//  3.
+//  4.
+//  5.
 //
 //////////////////////////////////////////
