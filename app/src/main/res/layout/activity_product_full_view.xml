@@ -46,10 +46,33 @@
         android:layout_below="@id/customABPFVL"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/imagePFV"
+        android:id="@+id/mainBtnLayPFV">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/wishPFVBTN"
+            android:text="Add to Wishlist"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vrmodePFVBTN"
+            android:text="View in VR"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/imagePFV"
+        android:layout_below="@id/mainBtnLayPFV"
         >
 
     <LinearLayout
@@ -78,6 +101,13 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:id="@+id/prodNumPFVTV"
+            android:padding="10dp"
+            android:textColor="@android:color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/prodCatPFVTV"
             android:padding="10dp"
             android:textColor="@android:color/black" />
 

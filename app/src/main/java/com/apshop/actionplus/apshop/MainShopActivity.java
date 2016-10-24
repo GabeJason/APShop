@@ -87,22 +87,22 @@ public class MainShopActivity extends AppCompatActivity {
 
 
 
-        //////////////// Initial Data Creation ////////////////////////
-
-        ////// Creates File //
-        String filename = "ProductData.txt";
-        File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
-        Log.i("FilePath",dataFile.getAbsolutePath());
-        dataFile.delete();
-        /////////////////////
-
-
-        if (!dataFile.exists()){
-
-            Log.i("File Exists","false");
-
-            //// Creates Array to Hold Products ////
-            product_data = new Product[]
+        //////////////// Initial Data Creation ///////////////////////////////////////////////////////////////
+                                                                                                            //
+        ////// Creates File //////////////////////////////////////////////////////////////////////////      //
+        String filename = "ProductData.txt";                                                        //      //
+        File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);        //      //
+        Log.i("FilePath",dataFile.getAbsolutePath());                                               //      //
+        dataFile.delete();                                                                          //      //
+        //////////////////////////////////////////////////////////////////////////////////////////////      //
+                                                                                                            //
+                                                                                                            //
+        if (!dataFile.exists()){                                                                            //
+                                                                                                            //
+            Log.i("File Exists","false");                                                                   //
+                                                                                                            //
+            //// Creates Array to Hold Products //////////////////////////////////////////////////////      //
+            product_data = new Product[]                                                            //      //
 
                     {
                             new Product(R.drawable.viking20tumbler, "20 Oz. Viking Tumbler", "20 Oz. double wall vacuum stainless steel bottom. Press-in lid. Keeps liquid hot for 5 1/2 hours. Keeps liquid cold for 24 hours. Silver, Black, Maroon Red, Navy Blue.", "YIDJI-KWXUS", "Drinkware"),
@@ -113,15 +113,15 @@ public class MainShopActivity extends AppCompatActivity {
                             new Product(R.drawable.airtextstyluspen, "Airtext Stylus Pen", "Designed for advanced connectivity with all touchscreen devices, this promotional stylus pen hits all the right buttons! Shimmering jewel tones are set off by striking silver tone accents while the elegant diamond etched grip provides writing comfort. Each ballpoint pen contains a smooth-writing  ink cartridge. Silver engraved with your logo or personalized message, this pen is a perfect gift for valued clients, customers, and executives. For your convenience, each pen is individually cellophane wrapped.", "AJGHE-JKTRE", "Pen"),
                             new Product(R.drawable.palmbeachumbrella, "Palm Beach 60\" Steel Golf Umbrella", "Solid colors: 190T polyester, two tone colors: half polyester/half nylon. Full size vented golf umbrella. 60\" arc. Manual opening. Large polyester canopy. Sturdy metal shaft with wooden handle. 39\" L. Black, Khaki Beige, Navy Blue, Navy Blue/Khaki Beige, Red, Royal Blue, White/Black, White/Royal Blue.", "CDFBJ-JJKCT","Umbrella")
                     };
-
-            try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            /////////////////////////////////////
-
-
+                                                                                                    //      //
+            try {                                                                                   //      //
+                dataFile.createNewFile();                                                           //      //
+            } catch (IOException e) {                                                               //      //
+                e.printStackTrace();                                                                //      //
+            }                                                                                       //      //
+            //////////////////////////////////////////////////////////////////////////////////////////      //
+                                                                                                            //
+                                                                                                            //
             ////// Writes External File //////////////////////////////////////////////////////////////      //
             FileOutputStream outputStream = null;                                                   //      //
                                                                                                     //      //
@@ -270,50 +270,55 @@ public class MainShopActivity extends AppCompatActivity {
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        /////////////// Product List View Creation ///////////////////////////
-
-        /////// Creates List and Adapter //
-        adapter = new ProductAdapter(this, R.layout.row, product_data);
-        productListV = (ListView)findViewById(R.id.mainProductLV);
-        productListV.setAdapter(adapter);
-        ///////////////////////////////////
-
+        /////////////// Product List View  ///////////////////////////////////////////////////////////
+                                                                                                    //
+        /////// Creates List and Adapter /////////////////////////////////////////                  //
+        adapter = new ProductAdapter(this, R.layout.row, product_data);         //                  //
+        productListV = (ListView)findViewById(R.id.mainProductLV);              //                  //
+        productListV.setAdapter(adapter);                                       //                  //
+        //////////////////////////////////////////////////////////////////////////                  //
+                                                                                                    //
         productListV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if(menuBtn.getTag() == "1") {
-                    Intent intent = new Intent(getApplicationContext(), ProductFullView.class);
-
-                    if (checkProd != null) {
-                        int c = 0;
-                        for (int i = 0; i < checkProd.length; i++) {
-                            if (c == position && checkProd[i] == 1) {
-                                intent.putExtra("item", Integer.toString(i));
-                                break;
-                            }
-                            if (checkProd[i] == 1) {
-                                c = c + 1;
-                            }
-                        }
-                        if (c == 0) {
-                            intent.putExtra("item", Integer.toString(position));
-                        }
-                    } else {
-                        intent.putExtra("item", Integer.toString(position));
-                    }
-
-                    startActivity(intent);
-                    Log.i("ID OnClick", Long.toString(id));
-                }
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                       //
+                                                                                                    //
+                if(menuBtn.getTag() == "1") {                                                       //
+                    Intent intent = new Intent(getApplicationContext(), ProductFullView.class);     //
+                                                                                                    //
+                    if (checkProd != null) {                                                        //
+                        int c = 0;                                                                  //
+                        for (int i = 0; i < checkProd.length; i++) {                                //
+                            if (c == position && checkProd[i] == 1) {                               //
+                                intent.putExtra("item", Integer.toString(i));                       //
+                                break;                                                              //
+                            }                                                                       //
+                            if (checkProd[i] == 1) {                                                //
+                                c = c + 1;                                                          //
+                            }                                                                       //
+                        }                                                                           //
+                        if (c == 0) {                                                               //
+                            intent.putExtra("item", Integer.toString(position));                    //
+                        }                                                                           //
+                    } else {                                                                        //
+                        intent.putExtra("item", Integer.toString(position));                        //
+                    }                                                                               //
+                                                                                                    //
+                    startActivity(intent);                                                          //
+                    Log.i("ID OnClick", Long.toString(id));                                         //
+                }                                                                                   //
+                                                                                                    //
             }
-        });
+        });                                                                                         //
+        //////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        /////////////////////////////// MENU FUNCTIONS /////////////////////////////////////////////////////////
+                                                                                                              //
+        //////////////////// MENU BUTTON /////////////////////////////////////////////////////                //
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View v) {                                                 //                //
+                                                                                            //
                 if(menuBtn.getTag()==("1")) {
                     menuBtn.setBackgroundResource(R.drawable.exitbtnimg);
                     menuBtn.setTag("2");
@@ -321,6 +326,9 @@ public class MainShopActivity extends AppCompatActivity {
                     if(drinkwareCK.isChecked()){
                         categorySwitch.setTag("2");
                         categorySwitch.setBackgroundResource(R.drawable.categoryopen);
+                    }else{
+                        categorySwitch.setTag("1");
+                        categorySwitch.setBackgroundResource(R.drawable.categoryclose);
                     }
                     //newTimer();
                    // menuBarView.animate().translationX(500);
@@ -436,7 +444,7 @@ public class MainShopActivity extends AppCompatActivity {
 
     }
 
-    int counter;
+   /* int counter;
 
     public void newTimer(){
         final ViewGroup.LayoutParams params = menuBarView.getLayoutParams();
@@ -455,14 +463,14 @@ public class MainShopActivity extends AppCompatActivity {
             }
         }.start();
 
-    }
+    }*/
 
-    public static float convertDpToPixel(float dp, Context context){
+   /* public static float convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return px;
-    }
+    }*/
 
     public void compString(String one, String two, int w){
         boolean check = false;

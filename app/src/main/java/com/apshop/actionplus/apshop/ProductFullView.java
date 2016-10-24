@@ -1,10 +1,10 @@
 package com.apshop.actionplus.apshop;
 
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ public class ProductFullView extends AppCompatActivity {
 
     int ProductNum = 0;
     ImageButton exitBtn;
+    Button wishBtn, vrmodeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,15 @@ public class ProductFullView extends AppCompatActivity {
         ProductNum = Integer.parseInt(getIntent().getExtras().getString("item"));
 
         exitBtn = (ImageButton)findViewById(R.id.exitItemBtn);
+        wishBtn = (Button)findViewById(R.id.wishPFVBTN);
+        vrmodeBtn = (Button)findViewById(R.id.vrmodePFVBTN);
 
         ImageView productImg = (ImageView)findViewById(R.id.imagePFV);
         TextView productTitle = (TextView)findViewById(R.id.titlePFVTV);
         TextView productDesc = (TextView)findViewById(R.id.descPFVTV);
         TextView productABTitle = (TextView)findViewById(R.id.itemNameABTV);
         TextView prodNumTV = (TextView)findViewById(R.id.prodNumPFVTV);
+        TextView prodCatTV = (TextView)findViewById(R.id.prodCatPFVTV);
 
         String filename = "ProductData.txt";
         File dataFile = new File(getApplicationContext().getFilesDir(), filename);
@@ -115,6 +119,7 @@ public class ProductFullView extends AppCompatActivity {
                     productABTitle.setText(pTitle);
                     productDesc.setText(pSrtDesc);
                     prodNumTV.setText("Item Number: " + sysProdNum);
+                    prodCatTV.setText(pCategory);
                 }
             }
 
