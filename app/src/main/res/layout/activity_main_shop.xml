@@ -133,6 +133,27 @@
 
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Wishlist"
+                android:id="@+id/viewwishListBtn"
+                android:tag="1"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Clear Wishlist"
+                android:id="@+id/clearwishlistBtn"
+                android:visibility="gone"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send Wishlist"
+                android:id="@+id/sendWishListBtn"
+                android:visibility="gone"/>
+
         </LinearLayout>
         
         

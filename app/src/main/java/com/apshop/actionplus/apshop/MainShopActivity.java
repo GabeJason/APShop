@@ -39,7 +39,7 @@ public class MainShopActivity extends AppCompatActivity {
     RelativeLayout menuLay;
     LinearLayout menuBarView;
     EditText searchText;
-    Button searchBtn, clearSearchBtn;
+    Button searchBtn, clearSearchBtn, viewWishListBtn, clearWishListBtn, sendWishListBtn;
     int prodSearchCount;
     int checkProd[];
     ProductAdapter adapter;
@@ -62,6 +62,10 @@ public class MainShopActivity extends AppCompatActivity {
 
         clearSearchBtn = (Button)findViewById(R.id.clearSearchBtn);
         searchBtn = (Button)findViewById(R.id.searchBtn);
+        viewWishListBtn = (Button)findViewById(R.id.viewwishListBtn);
+        viewWishListBtn.setTag("1");
+        clearWishListBtn = (Button)findViewById(R.id.clearwishlistBtn);
+        sendWishListBtn = (Button)findViewById(R.id.sendWishListBtn);
         ///////////////////////////////////////////////////
 
 
@@ -333,14 +337,7 @@ public class MainShopActivity extends AppCompatActivity {
                     //newTimer();
                    // menuBarView.animate().translationX(500);
                 }else{
-                    menuBtn.setBackgroundResource(R.drawable.menubtnimg);
-                    menuBtn.setTag("1");
-                    menuLay.setVisibility(View.GONE);
-                    categorySwitch.setTag("1");
-                    categorySwitch.setBackgroundResource(R.drawable.categoryclose);
-                    drinkwareCK.setVisibility(View.GONE);
-                    penCK.setVisibility(View.GONE);
-
+                    setMenuLayClose();
                 }
             }
         });
@@ -348,19 +345,7 @@ public class MainShopActivity extends AppCompatActivity {
         clearSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchText.setText("");
-                adapter.data = product_data;
-                productListV.setAdapter(adapter);
-                menuBtn.setBackgroundResource(R.drawable.menubtnimg);
-                menuBtn.setTag("1");
-                menuLay.setVisibility(View.GONE);
-                checkProd = null;
-                noSearchResults.setVisibility(View.GONE);
-                productListV.setVisibility(View.VISIBLE);
-                drinkwareCK.setChecked(false);
-                penCK.setChecked(false);
-                categorySwitch.setTag("1");
-                categorySwitch.setBackgroundResource(R.drawable.categoryclose);
+                resetListView();
             }
         });
 
@@ -383,63 +368,20 @@ public class MainShopActivity extends AppCompatActivity {
 
                     }
 
-                    if(drinkwareCK.isChecked()) {
-                        for (int i = 0; i < checkProd.length; i++){
-                            if(checkProd[i] == 1){
-                                if(!(product_data[i].category.equals("Drinkware"))) {
-                                    checkProd[i] = 0;
-                                    prodSearchCount = prodSearchCount - 1;
-                                }
-                            }
-                        }
-                    }
+                    checkCheckBoxes(true);
 
-                    if(penCK.isChecked()) {
-                        for (int i = 0; i < checkProd.length; i++){
-                            if(checkProd[i] == 1){
-                                if(!(product_data[i].category.equals("Pen"))) {
-                                    checkProd[i] = 0;
-                                    prodSearchCount = prodSearchCount - 1;
-                                }
-                            }
-                        }
-                    }
+                    settingNewAdapter(searchTxt);
+                }else if(drinkwareCK.isChecked() || penCK.isChecked()) {
 
-                    Product tempProductList[] = new Product[prodSearchCount];
+                        prodSearchCount = 0;
+                        checkProd = new int[product_data.length];
 
-                    prodSearchCount = 0;
+                        checkCheckBoxes(false);
 
-                    for (int r = 0; r < product_data.length; r++) {
-                        if (checkProd[r] == 1) {
-                            tempProductList[prodSearchCount] = product_data[r];
-                            prodSearchCount = prodSearchCount + 1;
-                        }
-                    }
+                        settingNewAdapter(searchTxt);
 
-                    if(prodSearchCount != 0) {
-                        adapter.data = tempProductList;
-
-                        ProductAdapter tempAdapt = new ProductAdapter(adapter);
-
-                        productListV.setAdapter(tempAdapt);
-                    }else{
-                        noSearchResults.setText("No Results found for: " + searchTxt);
-                        noSearchResults.setVisibility(View.VISIBLE);
-                        productListV.setVisibility(View.GONE );
-                    }
-
-                    menuBtn.setBackgroundResource(R.drawable.menubtnimg);
-                    menuBtn.setTag("1");
-                    menuLay.setVisibility(View.GONE);
                 }else{
-                    adapter.data = product_data;
-                    productListV.setAdapter(adapter);
-                    menuBtn.setBackgroundResource(R.drawable.menubtnimg);
-                    menuBtn.setTag("1");
-                    menuLay.setVisibility(View.GONE);
-                    checkProd = null;
-                    noSearchResults.setVisibility(View.GONE);
-                    productListV.setVisibility(View.VISIBLE);
+                    resetListView();
                 }
             }
         });
@@ -487,6 +429,39 @@ public class MainShopActivity extends AppCompatActivity {
             }
         });
 
+        viewWishListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(viewWishListBtn.getTag() == "1"){
+                    viewWishListBtn.setText("Continue Shopping");
+                    clearWishListBtn.setVisibility(View.VISIBLE);
+                    sendWishListBtn.setVisibility(View.VISIBLE);
+                    searchText.setVisibility(View.GONE);
+                    searchBtn.setVisibility(View.GONE);
+                    clearSearchBtn.setVisibility(View.GONE);
+                    drinkwareCK.setVisibility(View.GONE);
+                    penCK.setVisibility(View.GONE);
+                    categorySwitch.setVisibility(View.GONE);
+                    setMenuLayClose();
+
+                    viewWishListBtn.setTag("2");
+                }else{
+                    viewWishListBtn.setText("View Wishlist");
+                    clearWishListBtn.setVisibility(View.GONE);
+                    sendWishListBtn.setVisibility(View.GONE);
+                    searchText.setVisibility(View.VISIBLE);
+                    searchBtn.setVisibility(View.VISIBLE);
+                    clearSearchBtn.setVisibility(View.VISIBLE);
+                    drinkwareCK.setVisibility(View.VISIBLE);
+                    penCK.setVisibility(View.VISIBLE);
+                    categorySwitch.setVisibility(View.VISIBLE);
+                    resetListView();
+
+                    viewWishListBtn.setTag("1");
+                }
+            }
+        });
+
     }
 
    /* int counter;
@@ -516,6 +491,89 @@ public class MainShopActivity extends AppCompatActivity {
         float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return px;
     }*/
+
+    public void settingNewAdapter(String searchTxt){
+        Product tempProductList[] = new Product[prodSearchCount];
+
+        prodSearchCount = 0;
+
+        for (int r = 0; r < product_data.length; r++) {
+            if (checkProd[r] == 1) {
+                tempProductList[prodSearchCount] = product_data[r];
+                prodSearchCount = prodSearchCount + 1;
+            }
+        }
+
+        if(prodSearchCount != 0) {
+            adapter.data = tempProductList;
+
+            ProductAdapter tempAdapt = new ProductAdapter(adapter);
+
+            productListV.setAdapter(tempAdapt);
+        }else{
+            noSearchResults.setText("No Results found for: " + searchTxt);
+            noSearchResults.setVisibility(View.VISIBLE);
+            productListV.setVisibility(View.GONE );
+        }
+
+        setMenuLayClose();
+    }
+
+    public void checkCheckBoxes(boolean negative){
+        if(drinkwareCK.isChecked()) {
+            for (int i = 0; i < checkProd.length; i++){
+                if(checkProd[i] == 1 && negative){
+                    if(!(product_data[i].category.equals("Drinkware"))) {
+                        checkProd[i] = 0;
+                        prodSearchCount = prodSearchCount - 1;
+                    }
+                }else{
+                    if(product_data[i].category.equals("Drinkware")) {
+                        checkProd[i] = 1;
+                        prodSearchCount = prodSearchCount + 1;
+                    }
+                }
+            }
+        }
+
+        if(penCK.isChecked()) {
+            for (int i = 0; i < checkProd.length; i++){
+                if(checkProd[i] == 1 && negative){
+                    if(!(product_data[i].category.equals("Pen"))) {
+                        checkProd[i] = 0;
+                        prodSearchCount = prodSearchCount - 1;
+                    }
+                }else{
+                    if(product_data[i].category.equals("Pen")) {
+                        checkProd[i] = 1;
+                        prodSearchCount = prodSearchCount + 1;
+                    }
+                }
+            }
+        }
+    }
+
+    public void resetListView(){
+        adapter.data = product_data;
+        searchText.setText("");
+        productListV.setAdapter(adapter);
+        checkProd = null;
+        noSearchResults.setVisibility(View.GONE);
+        productListV.setVisibility(View.VISIBLE);
+        drinkwareCK.setChecked(false);
+        penCK.setChecked(false);
+        setMenuLayClose();
+    }
+
+    public void setMenuLayClose(){
+        menuBtn.setBackgroundResource(R.drawable.menubtnimg);
+        menuBtn.setTag("1");
+        menuLay.setVisibility(View.GONE);
+        categorySwitch.setTag("1");
+        categorySwitch.setBackgroundResource(R.drawable.categoryclose);
+        drinkwareCK.setVisibility(View.GONE);
+        penCK.setVisibility(View.GONE);
+    }
 
     public void compString(String one, String two, int w){
         boolean check = false;
@@ -603,7 +661,7 @@ public class MainShopActivity extends AppCompatActivity {
 //
 //   BUGS TO FIX
 //
-//  1.
+//  1. Create Wishlist File and incorporate
 //  2.
 //  3.
 //  4.
