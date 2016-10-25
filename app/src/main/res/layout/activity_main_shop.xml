@@ -102,6 +102,16 @@
                 android:textSize="18sp"
                 android:theme="@style/checkBoxStyle"/>
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pens"
+                android:id="@+id/pensCK"
+                android:visibility="gone"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:theme="@style/checkBoxStyle"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -44,7 +44,7 @@ public class MainShopActivity extends AppCompatActivity {
     int checkProd[];
     ProductAdapter adapter;
     TextView noSearchResults;
-    CheckBox drinkwareCK;
+    CheckBox drinkwareCK, penCK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class MainShopActivity extends AppCompatActivity {
 
         ////////////////// CheckBox ////////////////////////
         drinkwareCK = (CheckBox)findViewById(R.id.drinkwareCK);
+        penCK = (CheckBox)findViewById(R.id.pensCK);
         ///////////////////////////////////////////////////
 
 
@@ -323,12 +324,11 @@ public class MainShopActivity extends AppCompatActivity {
                     menuBtn.setBackgroundResource(R.drawable.exitbtnimg);
                     menuBtn.setTag("2");
                     menuLay.setVisibility(View.VISIBLE);
-                    if(drinkwareCK.isChecked()){
+                    if(drinkwareCK.isChecked() || penCK.isChecked()){
                         categorySwitch.setTag("2");
                         categorySwitch.setBackgroundResource(R.drawable.categoryopen);
-                    }else{
-                        categorySwitch.setTag("1");
-                        categorySwitch.setBackgroundResource(R.drawable.categoryclose);
+                        drinkwareCK.setVisibility(View.VISIBLE);
+                        penCK.setVisibility(View.VISIBLE);
                     }
                     //newTimer();
                    // menuBarView.animate().translationX(500);
@@ -336,6 +336,11 @@ public class MainShopActivity extends AppCompatActivity {
                     menuBtn.setBackgroundResource(R.drawable.menubtnimg);
                     menuBtn.setTag("1");
                     menuLay.setVisibility(View.GONE);
+                    categorySwitch.setTag("1");
+                    categorySwitch.setBackgroundResource(R.drawable.categoryclose);
+                    drinkwareCK.setVisibility(View.GONE);
+                    penCK.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -353,6 +358,7 @@ public class MainShopActivity extends AppCompatActivity {
                 noSearchResults.setVisibility(View.GONE);
                 productListV.setVisibility(View.VISIBLE);
                 drinkwareCK.setChecked(false);
+                penCK.setChecked(false);
                 categorySwitch.setTag("1");
                 categorySwitch.setBackgroundResource(R.drawable.categoryclose);
             }
@@ -381,6 +387,17 @@ public class MainShopActivity extends AppCompatActivity {
                         for (int i = 0; i < checkProd.length; i++){
                             if(checkProd[i] == 1){
                                 if(!(product_data[i].category.equals("Drinkware"))) {
+                                    checkProd[i] = 0;
+                                    prodSearchCount = prodSearchCount - 1;
+                                }
+                            }
+                        }
+                    }
+
+                    if(penCK.isChecked()) {
+                        for (int i = 0; i < checkProd.length; i++){
+                            if(checkProd[i] == 1){
+                                if(!(product_data[i].category.equals("Pen"))) {
                                     checkProd[i] = 0;
                                     prodSearchCount = prodSearchCount - 1;
                                 }
@@ -434,10 +451,38 @@ public class MainShopActivity extends AppCompatActivity {
                     categorySwitch.setBackgroundResource(R.drawable.categoryopen);
                     categorySwitch.setTag("2");
                     drinkwareCK.setVisibility(View.VISIBLE);
+                    penCK.setVisibility(View.VISIBLE);
                 }else{
                     categorySwitch.setBackgroundResource(R.drawable.categoryclose);
                     categorySwitch.setTag("1");
                     drinkwareCK.setVisibility(View.GONE);
+                    penCK.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        penCK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(penCK.isChecked()){
+                    drinkwareCK.setChecked(false);
+                    Log.i("Pen Checked", "No");
+                }else{
+                    Log.i("Pen Checked", "Yes");
+                }
+            }
+        });
+
+        drinkwareCK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(drinkwareCK.isChecked()){
+                    penCK.setChecked(false);
+                    Log.i("Pen Checked", "No");
+                }else{
+                    Log.i("Pen Checked", "Yes");
                 }
             }
         });
