@@ -445,6 +445,126 @@ public class MainShopActivity extends AppCompatActivity {
                     setMenuLayClose();
 
                     viewWishListBtn.setTag("2");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    Product wishProduct[];
+                    String filename = "wishList.txt";
+                    File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+                    Log.i("FilePath",wishFile.getAbsolutePath());
+
+                    if (!wishFile.exists()){
+
+                    }else{
+                        //
+                        /////// Reads in file created above on app start if file exists //////////////////////////////  //
+                        Log.i("File Exists","true");                                                                //  //
+                        //  //
+                        FileInputStream inputStream = null;                                                         //  //
+                        BufferedReader reader = null;                                                               //  //
+                        try{                                                                                        //  //
+                            int lines = 0;                                                                          //  //
+                            //  //
+                            for (int c = 1; c < 3; c++) {                                                           //  //
+                                if (c == 1) {                                                                       //  //
+                                    inputStream = new FileInputStream(wishFile);                                    //  //
+                                    reader = new BufferedReader(new InputStreamReader(inputStream));                //  //
+                                    String line = reader.readLine();                                                //  //
+                                    while (line != null) {                                                          //  //
+                                        lines = lines + 1;                                                          //  //
+                                        line = reader.readLine();                                                   //  //
+                                    }                                                                               //  //
+                                    lines = lines / 5;                                                              //  //
+                                    //  //
+                                    Log.i("Lines", Integer.toString(lines));                                        //  //
+                                } else {                                                                            //  //
+                                    Log.i("Running", "Yes");                                                        //  //
+                                    wishProduct = new Product[lines];                                              //  //
+                                    Log.i("Num of Items",Integer.toString(wishProduct.length));                    //  //
+                                    inputStream = new FileInputStream(wishFile);                                    //  //
+                                    reader = new BufferedReader(new InputStreamReader(inputStream));                //  //
+                                    String line = reader.readLine();                                                //  //
+                                    int pImg = 0;                                                                   //  //
+                                    String pTitle = "";                                                             //  //
+                                    String pSrtDesc = "";                                                           //  //
+                                    String pProductNum = "";                                                        //  //
+                                    String pCategory = "";                                                          //  //
+                                    int pCount = 0;                                                                 //  //
+                                    int iCount = 0;                                                                 //  //
+                                    while (line != null) {                                                          //  //
+                                        Log.i("Line not Null", "True");                                             //  //
+                                        switch (pCount) {                                                           //  //
+                                            case 0:                                                                 //  //
+                                                pImg = Integer.parseInt(line);                                      //  //
+                                                Log.i("pImg",Integer.toString(pImg));                               //  //
+                                                break;                                                              //  //
+                                            case 1:                                                                 //  //
+                                                pTitle = line;                                                      //  //
+                                                Log.i("pTitle",pTitle);                                             //  //
+                                                break;                                                              //  //
+                                            case 2:                                                                 //  //
+                                                pSrtDesc = line;                                                    //  //
+                                                Log.i("pSrtDesc",pSrtDesc);                                         //  //
+                                                break;                                                              //  //
+                                            case 3:                                                                 //  //
+                                                pProductNum = line;                                                 //  //
+                                                Log.i("pProductNum", pProductNum);                                  //  //
+                                                break;                                                              //  //
+                                            case 4:                                                                 //  //
+                                                pCategory = line;                                                   //  //
+                                                Log.i("pCategory", pCategory);                                      //  //
+                                        }                                                                           //  //
+                                        Log.i("pCount",Integer.toString(pCount));                                   //  //
+                                        Log.i("iCount",Integer.toString(iCount));                                   //  //
+                                        if (pCount == 4) {                                                          //  //
+                                            wishProduct[iCount] = new Product(pImg, pTitle, pSrtDesc,              //  //
+                                                    pProductNum, pCategory);                                        //  //
+                                            Log.i("ProNum", Integer.toString(iCount));                              //  //
+                                            Log.i("Image", Integer.toString(wishProduct[iCount].image));           //  //
+                                            Log.i("Title", wishProduct[iCount].title);                             //  //
+                                            Log.i("ShortDesc", wishProduct[iCount].shortDesc);                     //  //
+                                            Log.i("Category", wishProduct[iCount].category);                       //  //
+                                            iCount = iCount + 1;                                                    //  //
+                                            pCount = 0;                                                             //  //
+                                            //  //
+                                        } else {                                                                    //  //
+                                            pCount = pCount + 1;                                                    //  //
+                                        }                                                                           //  //
+                                        //  //
+                                        line = reader.readLine();                                                   //  //
+                                        //  //
+                                    }                                                                               //  //
+                                }                                                                                   //  //
+                            }                                                                                       //  //
+                            //  //
+                            //  //
+                            inputStream.close();                                                                    //  //
+                        }catch (Exception e) {                                                                      //  //
+                            e.printStackTrace();                                                                    //  //
+                        }                                                                                           //  //
+                        //////////////////////////////////////////////////////////////////////////////////////////////  //
+                        //
+                    }
+
+
+
+
+
+
+
+
+
                 }else{
                     viewWishListBtn.setText("View Wishlist");
                     clearWishListBtn.setVisibility(View.GONE);
