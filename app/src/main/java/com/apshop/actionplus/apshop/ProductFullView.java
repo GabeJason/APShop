@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
 public class ProductFullView extends AppCompatActivity {
@@ -19,6 +20,12 @@ public class ProductFullView extends AppCompatActivity {
     int ProductNum = 0;
     ImageButton exitBtn;
     Button wishBtn, vrmodeBtn;
+    int pImg;
+    String pTitle;
+    String pSrtDesc;
+    String sysProdNum;
+    String pCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +69,11 @@ public class ProductFullView extends AppCompatActivity {
                     inputStream = new FileInputStream(dataFile);
                     reader = new BufferedReader(new InputStreamReader(inputStream));
                     String line = reader.readLine();
-                    int pImg = 0;
-                    String pTitle = "";
-                    String pSrtDesc = "";
-                    String sysProdNum = "";
-                    String pCategory = "";
+                    pImg = 0;
+                    pTitle = "";
+                    pSrtDesc = "";
+                    sysProdNum = "";
+                    pCategory = "";
                     int pCount = 0;
                     int iCount = 0;
                     while (line != null) {
@@ -134,6 +141,56 @@ public class ProductFullView extends AppCompatActivity {
             public void onClick(View v) {
 
                 finish();
+            }
+        });
+
+        wishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filename = "wishList.txt";
+                File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+                Log.i("FilePath",wishFile.getAbsolutePath());
+
+                if(!wishFile.exists()){
+                    try{
+                        wishFile.createNewFile();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                FileOutputStream outputStream = null;
+                String writeOut = "";
+                try {
+                    outputStream = new FileOutputStream(wishFile);
+                        for (int p = 0; p < 5; p++) {
+                            switch (p){
+                                case 0:
+                                    writeOut = Integer.toString(pImg) + "\n";
+                                    Log.i("WriteOut", writeOut);
+                                    break;
+                                case 1:
+                                    writeOut = pTitle + "\n";
+                                    Log.i("WriteOut", writeOut);
+                                    break;
+                                case 2:
+                                    writeOut = pSrtDesc + "\n";
+                                    Log.i("WriteOut", writeOut);
+                                    break;
+                                case 3:
+                                    writeOut = sysProdNum + "\n";
+                                    Log.i("WriteOut", writeOut);
+                                    break;
+                                case 4:
+                                    writeOut = pCategory + "\n";
+                                    Log.i("WriteOut", writeOut);
+                                    break;
+                            }
+                            outputStream.write(writeOut.getBytes());
+                        }
+                    outputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

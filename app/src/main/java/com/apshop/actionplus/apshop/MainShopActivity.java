@@ -35,6 +35,7 @@ public class MainShopActivity extends AppCompatActivity {
 
     private ListView productListV;
     private Product product_data[];
+    Product wishProduct[];
     ImageButton menuBtn, categorySwitch;
     RelativeLayout menuLay;
     LinearLayout menuBarView;
@@ -98,7 +99,7 @@ public class MainShopActivity extends AppCompatActivity {
         String filename = "ProductData.txt";                                                        //      //
         File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);        //      //
         Log.i("FilePath",dataFile.getAbsolutePath());                                               //      //
-        dataFile.delete();                                                                          //      //
+        //dataFile.delete();                                                                          //      //
         //////////////////////////////////////////////////////////////////////////////////////////////      //
                                                                                                             //
                                                                                                             //
@@ -370,7 +371,7 @@ public class MainShopActivity extends AppCompatActivity {
 
                     checkCheckBoxes(true);
 
-                    settingNewAdapter(searchTxt, false);
+                    settingNewAdapter(searchTxt);
                 }else if(drinkwareCK.isChecked() || penCK.isChecked()) {
 
                         prodSearchCount = 0;
@@ -378,7 +379,7 @@ public class MainShopActivity extends AppCompatActivity {
 
                         checkCheckBoxes(false);
 
-                        settingNewAdapter(searchTxt, false);
+                        settingNewAdapter(searchTxt);
 
                 }else{
                     resetListView();
@@ -446,7 +447,6 @@ public class MainShopActivity extends AppCompatActivity {
 
                     viewWishListBtn.setTag("2");
 
-                    Product wishProduct[];
                     String filename = "wishList.txt";
                     File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
                     Log.i("FilePath",wishFile.getAbsolutePath());
@@ -490,6 +490,7 @@ public class MainShopActivity extends AppCompatActivity {
                                     String pCategory = "";
                                     int pCount = 0;
                                     int iCount = 0;
+                                    prodSearchCount = 0;
                                     while (line != null) {
                                         Log.i("Line not Null", "True");
                                         switch (pCount) {
@@ -525,6 +526,7 @@ public class MainShopActivity extends AppCompatActivity {
                                             Log.i("Category", wishProduct[iCount].category);
                                             iCount = iCount + 1;
                                             pCount = 0;
+                                            prodSearchCount = prodSearchCount + 1;
                                         } else {
                                             pCount = pCount + 1;
                                         }
@@ -536,11 +538,20 @@ public class MainShopActivity extends AppCompatActivity {
                             }
 
                             inputStream.close();
+
+                            if(lines != 0){
+                                adapter.data = wishProduct;
+                                ProductAdapter tempAdapt = new ProductAdapter(adapter);
+                                productListV.setAdapter(tempAdapt);
+                            }else{
+                                noSearchResults.setText("No Wishlist Found \n Start Adding Items to View Your Wishlist");
+                                noSearchResults.setVisibility(View.VISIBLE);
+                                productListV.setVisibility(View.GONE );
+                            }
                         }catch (Exception e) {
                             e.printStackTrace();
                         }
-                        checkProd = new int[product_data.length];
-                        settingNewAdapter("",true);
+
                     }
 
 
@@ -591,7 +602,7 @@ public class MainShopActivity extends AppCompatActivity {
         return px;
     }*/
 
-    public void settingNewAdapter(String searchTxt, boolean wish){
+    public void settingNewAdapter(String searchTxt){
         Product tempProductList[] = new Product[prodSearchCount];
 
         prodSearchCount = 0;
@@ -609,12 +620,8 @@ public class MainShopActivity extends AppCompatActivity {
             ProductAdapter tempAdapt = new ProductAdapter(adapter);
 
             productListV.setAdapter(tempAdapt);
-        }else if(!wish){
-            noSearchResults.setText("No Results found for: " + searchTxt);
-            noSearchResults.setVisibility(View.VISIBLE);
-            productListV.setVisibility(View.GONE );
         }else{
-            noSearchResults.setText("No Wishlist Found \n Start Adding Items to View Your Wishlist");
+            noSearchResults.setText("No Results found for: " + searchTxt);
             noSearchResults.setVisibility(View.VISIBLE);
             productListV.setVisibility(View.GONE );
         }
@@ -764,8 +771,8 @@ public class MainShopActivity extends AppCompatActivity {
 //
 //   BUGS TO FIX
 //
-//  1. Create Wishlist File and incorporate
-//  2.
+//  1. Don't let them repeat
+//  2. Only does one item
 //  3.
 //  4.
 //  5.
