@@ -771,8 +771,8 @@ public class MainShopActivity extends AppCompatActivity {
 //
 //   BUGS TO FIX
 //
-//  1. Don't let them repeat
-//  2. Only does one item
+//  1.
+//  2.
 //  3.
 //  4.
 //  5.
