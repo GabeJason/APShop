@@ -1,5 +1,6 @@
 package com.apshop.actionplus.apshop;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -290,6 +291,14 @@ public class ProductFullView extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            }
+        });
+
+        vrmodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent vrmode = new Intent(getApplicationContext(), VrModeActivity.class);
+                startActivity(vrmode);
             }
         });
     }

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apshop.actionplus.apshop">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +21,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainShopActivity" />
-        <activity android:name=".ProductFullView"></activity>
+        <activity android:name=".ProductFullView" />
+        <activity
+            android:name=".VrModeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_vr_mode"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"></activity>
     </application>
 
 </manifest>
