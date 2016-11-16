@@ -1,10 +1,14 @@
 package com.apshop.actionplus.apshop;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -15,15 +19,24 @@ import android.widget.Toast;
  */
 public class VrModeActivity extends Activity {
 
+    WebView myWebView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_vr_mode);
 
-        WebView myWebView = (WebView) findViewById(R.id.vrWebView);
+        myWebView = (WebView) findViewById(R.id.vrWebView);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
+        myWebView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -36,5 +49,18 @@ public class VrModeActivity extends Activity {
         }
     }
 
-
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                myWebView.callOnClick();
+                myWebView.loadUrl("javascript:document.getElementsByClassName('viewer started model-loaded transparent-pattern').click();");
+                Toast.makeText(getApplicationContext(), "Volume UP", Toast.LENGTH_SHORT).show();
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                return true;
+            default:
+                return super.dispatchKeyEvent(event);
+        }
+    }
 }
