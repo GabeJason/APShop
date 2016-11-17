@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -147,8 +148,8 @@ public class ProductFullView extends AppCompatActivity {
 
         for (int i = 0; i < wishItems.length; i++) {
             if (productTitle.getText().equals(wishItems[i].title)) {
-                wishBtn.setText("Remove From List");
                 wishBtn.setTag("2");
+                wishBtn.setBackgroundResource(R.drawable.subwishlist);
                 itemIndex = i;
                 break;
             }
@@ -160,6 +161,29 @@ public class ProductFullView extends AppCompatActivity {
             public void onClick(View v) {
 
                 finish();
+            }
+        });
+
+        wishBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if(wishBtn.getTag().equals("1")) {
+                            wishBtn.setBackgroundResource(R.drawable.addwishlistc);
+                        }else{
+                            wishBtn.setBackgroundResource(R.drawable.subwishlistc);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(wishBtn.getTag().equals("1")) {
+                            wishBtn.setBackgroundResource(R.drawable.subwishlist);
+                        }else{
+                            wishBtn.setBackgroundResource(R.drawable.addwishlist);
+                        }
+                        break;
+                }
+                return false;
             }
         });
 
@@ -210,24 +234,29 @@ public class ProductFullView extends AppCompatActivity {
                         outputStream.close();
 
                         int newIndex = wishItems.length;
-                        wishItems[newIndex] = new Product(pImg, pTitle, pSrtDesc,
+                        Product tempList[] = new Product[wishItems.length+1];
+                        for (int i = 0; i < newIndex; i++){
+                            tempList[i] = wishItems[i];
+                        }
+
+                        tempList[newIndex] = new Product(pImg, pTitle, pSrtDesc,
                                 sysProdNum, pCategory);
                         Log.i("ProNum", Integer.toString(newIndex));
-                        Log.i("Image", Integer.toString(wishItems[newIndex].image));
-                        Log.i("Title", wishItems[newIndex].title);
-                        Log.i("ShortDesc", wishItems[newIndex].shortDesc);
-                        Log.i("Category", wishItems[newIndex].category);
+                        Log.i("Image", Integer.toString(tempList[newIndex].image));
+                        Log.i("Title", tempList[newIndex].title);
+                        Log.i("ShortDesc", tempList[newIndex].shortDesc);
+                        Log.i("Category", tempList[newIndex].category);
+
+                        wishItems = tempList;
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     wishBtn.setTag("2");
-                    wishBtn.setText("Remove from List");
 
                 }else{
                     wishBtn.setTag("1");
-                    wishBtn.setText("Add to Wishlist");
 
                     Product tempList[] = new Product[wishItems.length -1];
                     for (int i = 0; i < tempList.length; i++){

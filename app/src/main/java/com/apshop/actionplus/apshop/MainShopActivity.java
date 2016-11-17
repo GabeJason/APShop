@@ -99,7 +99,7 @@ public class MainShopActivity extends AppCompatActivity {
         String filename = "ProductData.txt";                                                        //      //
         File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);        //      //
         Log.i("FilePath",dataFile.getAbsolutePath());                                               //      //
-        //dataFile.delete();                                                                          //      //
+        dataFile.delete();                                                                          //      //
         //////////////////////////////////////////////////////////////////////////////////////////////      //
                                                                                                             //
                                                                                                             //
@@ -288,26 +288,38 @@ public class MainShopActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                       //
                                                                                                     //
-                if(menuBtn.getTag() == "1") {                                                       //
+                if(menuBtn.getTag() == "1") {
+
                     Intent intent = new Intent(getApplicationContext(), ProductFullView.class);     //
-                                                                                                    //
-                    if (checkProd != null) {                                                        //
-                        int c = 0;                                                                  //
-                        for (int i = 0; i < checkProd.length; i++) {                                //
-                            if (c == position && checkProd[i] == 1) {                               //
-                                intent.putExtra("item", Integer.toString(i));                       //
-                                break;                                                              //
-                            }                                                                       //
-                            if (checkProd[i] == 1) {                                                //
-                                c = c + 1;                                                          //
-                            }                                                                       //
-                        }                                                                           //
-                        if (c == 0) {                                                               //
-                            intent.putExtra("item", Integer.toString(position));                    //
-                        }                                                                           //
-                    } else {                                                                        //
-                        intent.putExtra("item", Integer.toString(position));                        //
-                    }                                                                               //
+
+                    if (viewWishListBtn.getTag().equals("1")) {
+                        if (checkProd != null) {                                                        //
+                            int c = 0;                                                                  //
+                            for (int i = 0; i < checkProd.length; i++) {                                //
+                                if (c == position && checkProd[i] == 1) {                               //
+                                    intent.putExtra("item", Integer.toString(i));                       //
+                                    break;                                                              //
+                                }                                                                       //
+                                if (checkProd[i] == 1) {                                                //
+                                    c = c + 1;                                                          //
+                                }                                                                       //
+                            }                                                                           //
+                            if (c == 0) {                                                               //
+                                intent.putExtra("item", Integer.toString(position));                    //
+                            }                                                                           //
+                        } else {                                                                        //
+                            intent.putExtra("item", Integer.toString(position));                        //
+                        }
+
+                    }else{
+                        String name = wishProduct[position].title;
+                        for(int i = 0; i < product_data.length; i++){
+                            if (product_data[i].title.equals(name)){
+                                intent.putExtra("item", Integer.toString(i));
+                                break;
+                            }
+                        }
+                    }
                                                                                                     //
                     startActivity(intent);                                                          //
                     Log.i("ID OnClick", Long.toString(id));                                         //

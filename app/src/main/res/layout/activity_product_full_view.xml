@@ -18,7 +18,7 @@
 
         <ImageButton
             android:layout_height="40dp"
-            android:background="@drawable/exitbtnimg"
+            android:background="@drawable/backarrow"
             android:layout_width="40dp"
             android:layout_margin="10dp"
             android:id="@+id/exitItemBtn" />
@@ -51,22 +51,31 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/imagePFV"
-        android:id="@+id/mainBtnLayPFV">
+        android:id="@+id/mainBtnLayPFV"
+        android:background="@drawable/bordertopbott"
+        android:padding="0dp"
+        android:layout_margin="0dp">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:layout_width="187dp"
             android:id="@+id/wishPFVBTN"
-            android:text="Add to Wishlist"
             android:layout_weight="1"
-            android:tag="1"/>
+            android:tag="1"
+            android:background="@drawable/addwishlist"
+            android:layout_height="60dp" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:layout_width="87dp"
+            android:layout_height="60dp"
             android:id="@+id/vrmodePFVBTN"
-            android:text="View in VR"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@drawable/googlecardboard" />
 
     </LinearLayout>
 

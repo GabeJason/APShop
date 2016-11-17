@@ -54,8 +54,8 @@ public class VrModeActivity extends Activity {
         int keyCode = event.getKeyCode();
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
-                myWebView.callOnClick();
-                myWebView.loadUrl("javascript:document.getElementsByClassName('viewer started model-loaded transparent-pattern').click();");
+               // myWebView.callOnClick();
+                //myWebView.loadUrl("javascript:document.getElementsByClassName('viewer started model-loaded transparent-pattern').click();");
                 Toast.makeText(getApplicationContext(), "Volume UP", Toast.LENGTH_SHORT).show();
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 return true;
