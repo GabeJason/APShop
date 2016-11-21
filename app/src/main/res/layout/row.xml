@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/bordertopbott">
 
     <ImageView
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:id="@+id/titleTVLI"
-            android:textColor="#000000"/>
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -21,8 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainShopActivity" />
-        <activity android:name=".ProductFullView" />
+        <activity android:name=".MainShopActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProductFullView"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".VrModeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

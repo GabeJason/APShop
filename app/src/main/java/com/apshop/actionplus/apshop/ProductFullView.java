@@ -164,6 +164,25 @@ public class ProductFullView extends AppCompatActivity {
             }
         });
 
+        vrmodeBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        vrmodeBtn.setBackgroundResource(R.drawable.googlecardboardc);
+                        Log.i("Cardboard", "Down");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        vrmodeBtn.setBackgroundResource(R.drawable.googlecardboard);
+                        Intent vrmode = new Intent(getApplicationContext(), VrModeActivity.class);
+                        startActivity(vrmode);
+                        Log.i("Cardboard", "Down");
+                        break;
+                }
+                return false;
+            }
+        });
+
         wishBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -320,14 +339,6 @@ public class ProductFullView extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }
-        });
-
-        vrmodeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent vrmode = new Intent(getApplicationContext(), VrModeActivity.class);
-                startActivity(vrmode);
             }
         });
     }

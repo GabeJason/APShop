@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_alignParentEnd="true"
-            android:background="@color/whitecolor"
+            android:background="@drawable/borderleft"
             android:id="@+id/actualMenuView"
             android:animateLayoutChanges="false"
             android:padding="5dp">
