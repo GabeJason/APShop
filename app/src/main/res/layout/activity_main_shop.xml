@@ -85,12 +85,30 @@
                 android:textColor="@android:color/black"
                 android:theme="@style/editTextStyle"/>
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:tag="1"
-                android:id="@+id/categorySwitchBtn"
-                android:background="@drawable/categoryclose" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:text="Category"
+                    android:textSize="20sp"
+                    android:gravity= "center"
+                    android:textColor="#000"
+                    android:paddingLeft="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/categoryTxt"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:tag="1"
+                    android:id="@+id/categorySwitchBtn"
+                    android:background="@drawable/categoryopen"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
 
             <CheckBox
                 android:layout_width="match_parent"
@@ -117,19 +135,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Search"
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_margin="10dp"
                     android:id="@+id/searchBtn"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/search"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Clear"
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_margin="10dp"
                     android:id="@+id/clearSearchBtn"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:background="@drawable/clearsearch"/>
 
             </LinearLayout>
 

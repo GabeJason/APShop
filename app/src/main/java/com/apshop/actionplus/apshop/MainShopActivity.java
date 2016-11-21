@@ -36,15 +36,15 @@ public class MainShopActivity extends AppCompatActivity {
     private ListView productListV;
     private Product product_data[];
     Product wishProduct[];
-    ImageButton menuBtn, categorySwitch;
+    ImageButton menuBtn, categorySwitch, searchBtn, clearSearchBtn;
     RelativeLayout menuLay;
     LinearLayout menuBarView;
     EditText searchText;
-    Button searchBtn, clearSearchBtn, viewWishListBtn, clearWishListBtn, sendWishListBtn;
+    Button viewWishListBtn, clearWishListBtn, sendWishListBtn;
     int prodSearchCount;
     int checkProd[];
     ProductAdapter adapter;
-    TextView noSearchResults;
+    TextView noSearchResults, categoryTxt;
     CheckBox drinkwareCK, penCK;
 
     @Override
@@ -61,8 +61,8 @@ public class MainShopActivity extends AppCompatActivity {
         categorySwitch = (ImageButton)findViewById(R.id.categorySwitchBtn);
         categorySwitch.setTag("1");
 
-        clearSearchBtn = (Button)findViewById(R.id.clearSearchBtn);
-        searchBtn = (Button)findViewById(R.id.searchBtn);
+        clearSearchBtn = (ImageButton)findViewById(R.id.clearSearchBtn);
+        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
         viewWishListBtn = (Button)findViewById(R.id.viewwishListBtn);
         viewWishListBtn.setTag("1");
         clearWishListBtn = (Button)findViewById(R.id.clearwishlistBtn);
@@ -82,6 +82,7 @@ public class MainShopActivity extends AppCompatActivity {
 
 
         ////////////////// TextView ////////////////////////
+        categoryTxt = (TextView)findViewById(R.id.categoryTxt);
         noSearchResults = (TextView)findViewById(R.id.noResultsTxt);
         ///////////////////////////////////////////////////
 
@@ -343,7 +344,7 @@ public class MainShopActivity extends AppCompatActivity {
                     menuLay.setVisibility(View.VISIBLE);
                     if(drinkwareCK.isChecked() || penCK.isChecked()){
                         categorySwitch.setTag("2");
-                        categorySwitch.setBackgroundResource(R.drawable.categoryopen);
+                        categorySwitch.setBackgroundResource(R.drawable.categoryclose);
                         drinkwareCK.setVisibility(View.VISIBLE);
                         penCK.setVisibility(View.VISIBLE);
                     }
@@ -403,12 +404,12 @@ public class MainShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(categorySwitch.getTag() == "1"){
-                    categorySwitch.setBackgroundResource(R.drawable.categoryopen);
+                    categorySwitch.setBackgroundResource(R.drawable.categoryclose);
                     categorySwitch.setTag("2");
                     drinkwareCK.setVisibility(View.VISIBLE);
                     penCK.setVisibility(View.VISIBLE);
                 }else{
-                    categorySwitch.setBackgroundResource(R.drawable.categoryclose);
+                    categorySwitch.setBackgroundResource(R.drawable.categoryopen);
                     categorySwitch.setTag("1");
                     drinkwareCK.setVisibility(View.GONE);
                     penCK.setVisibility(View.GONE);
@@ -455,6 +456,7 @@ public class MainShopActivity extends AppCompatActivity {
                     drinkwareCK.setVisibility(View.GONE);
                     penCK.setVisibility(View.GONE);
                     categorySwitch.setVisibility(View.GONE);
+                    categoryTxt.setVisibility(View.GONE);
                     setMenuLayClose();
 
                     viewWishListBtn.setTag("2");
@@ -577,6 +579,7 @@ public class MainShopActivity extends AppCompatActivity {
                     drinkwareCK.setVisibility(View.VISIBLE);
                     penCK.setVisibility(View.VISIBLE);
                     categorySwitch.setVisibility(View.VISIBLE);
+                    categoryTxt.setVisibility(View.VISIBLE);
                     resetListView();
 
                     viewWishListBtn.setTag("1");
