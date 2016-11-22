@@ -94,22 +94,22 @@ public class MainShopActivity extends AppCompatActivity {
 
 
 
-        //////////////// Initial Data Creation ///////////////////////////////////////////////////////////////
-                                                                                                            //
-        ////// Creates File //////////////////////////////////////////////////////////////////////////      //
-        String filename = "ProductData.txt";                                                        //      //
-        File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);        //      //
-        Log.i("FilePath",dataFile.getAbsolutePath());                                               //      //
-        dataFile.delete();                                                                          //      //
-        //////////////////////////////////////////////////////////////////////////////////////////////      //
-                                                                                                            //
-                                                                                                            //
-        if (!dataFile.exists()){                                                                            //
-                                                                                                            //
-            Log.i("File Exists","false");                                                                   //
-                                                                                                            //
-            //// Creates Array to Hold Products //////////////////////////////////////////////////////      //
-            product_data = new Product[]                                                            //      //
+        //////////////// Initial Data Creation ////////////////////////////////////////////////////////////
+
+        ////// Creates File //////////////////////////////////////////////////////////////////////////
+        String filename = "ProductData.txt";
+        File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+        Log.i("FilePath",dataFile.getAbsolutePath());
+        dataFile.delete();
+        //////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        if (!dataFile.exists()){
+
+            Log.i("File Exists","false");
+
+            //// Creates Array to Hold Products //////////////////////////////////////////////////////
+            product_data = new Product[]
 
                     {
                             new Product(R.drawable.viking20tumbler, "20 Oz. Viking Tumbler", "20 Oz. double wall vacuum stainless steel bottom. Press-in lid. Keeps liquid hot for 5 1/2 hours. Keeps liquid cold for 24 hours. Silver, Black, Maroon Red, Navy Blue.", "YIDJI-KWXUS", "Drinkware"),
@@ -120,196 +120,196 @@ public class MainShopActivity extends AppCompatActivity {
                             new Product(R.drawable.airtextstyluspen, "Airtext Stylus Pen", "Designed for advanced connectivity with all touchscreen devices, this promotional stylus pen hits all the right buttons! Shimmering jewel tones are set off by striking silver tone accents while the elegant diamond etched grip provides writing comfort. Each ballpoint pen contains a smooth-writing  ink cartridge. Silver engraved with your logo or personalized message, this pen is a perfect gift for valued clients, customers, and executives. For your convenience, each pen is individually cellophane wrapped.", "AJGHE-JKTRE", "Pen"),
                             new Product(R.drawable.palmbeachumbrella, "Palm Beach 60\" Steel Golf Umbrella", "Solid colors: 190T polyester, two tone colors: half polyester/half nylon. Full size vented golf umbrella. 60\" arc. Manual opening. Large polyester canopy. Sturdy metal shaft with wooden handle. 39\" L. Black, Khaki Beige, Navy Blue, Navy Blue/Khaki Beige, Red, Royal Blue, White/Black, White/Royal Blue.", "CDFBJ-JJKCT","Umbrella")
                     };
-                                                                                                    //      //
-            try {                                                                                   //      //
-                dataFile.createNewFile();                                                           //      //
-            } catch (IOException e) {                                                               //      //
-                e.printStackTrace();                                                                //      //
-            }                                                                                       //      //
-            //////////////////////////////////////////////////////////////////////////////////////////      //
-                                                                                                            //
-                                                                                                            //
-            ////// Writes External File //////////////////////////////////////////////////////////////      //
-            FileOutputStream outputStream = null;                                                   //      //
-                                                                                                    //      //
-            String writeOut = "";                                                                   //      //
-                                                                                                    //      //
-            int lineCount = 0;                                                                      //      //
-                                                                                                    //      //
-            try {                                                                                   //      //
-                                                                                                    //      //
-                outputStream = new FileOutputStream(dataFile);                                      //      //
-                                                                                                    //      //
-                for (int i = 0; i < product_data.length; i++) {                                     //      //
-                                                                                                    //      //
-                    for (int p = 0; p < 5; p++) {                                                   //      //
-                                                                                                    //      //
-                        switch (p){                                                                 //      //
-                            case 0:                                                                 //      //
-                                writeOut = Integer.toString(product_data[i].image) + "\n";          //      //
-                                Log.i("WriteOut", writeOut);                                        //      //
-                                break;                                                              //      //
-                            case 1:                                                                 //      //
-                                writeOut = product_data[i].title + "\n";                            //      //
-                                Log.i("WriteOut", writeOut);                                        //      //
-                                break;                                                              //      //
-                            case 2:                                                                 //      //
-                                writeOut = product_data[i].shortDesc + "\n";                        //      //
-                                Log.i("WriteOut", writeOut);                                        //      //
-                                break;                                                              //      //
-                            case 3:                                                                 //      //
-                                writeOut = product_data[i].productSystNum + "\n";                   //      //
-                                Log.i("WriteOut", writeOut);                                        //      //
-                                break;                                                              //      //
-                            case 4:                                                                 //      //
-                                writeOut = product_data[i].category + "\n";                         //      //
-                                Log.i("WriteOut", writeOut);                                        //      //
-                                break;                                                              //      //
-                        }                                                                           //      //
-                                                                                                    //      //
-                        lineCount = lineCount + 1;                                                  //      //
-                                                                                                    //      //
-                        outputStream.write(writeOut.getBytes());                                    //      //
-                                                                                                    //      //
-                                                                                                    //      //
-                    }                                                                               //      //
-                }                                                                                   //      //
-                lineCount = lineCount / 5;                                                          //      //
-                outputStream.close();                                                               //      //
-                Log.i("LineCount", Integer.toString(lineCount));                                    //      //
-            } catch (Exception e) {                                                                 //      //
-                e.printStackTrace();                                                                //      //
-            }                                                                                       //      //
-            //////////////////////////////////////////////////////////////////////////////////////////      //
-                                                                                                            //
-        }else{                                                                                              //
-                                                                                                            //
-            /////// Reads in file created above on app start if file exists //////////////////////////////  //
-            Log.i("File Exists","true");                                                                //  //
-                                                                                                        //  //
-            FileInputStream inputStream = null;                                                         //  //
-            BufferedReader reader = null;                                                               //  //
-            try{                                                                                        //  //
-                int lines = 0;                                                                          //  //
-                                                                                                        //  //
-                for (int c = 1; c < 3; c++) {                                                           //  //
-                    if (c == 1) {                                                                       //  //
-                        inputStream = new FileInputStream(dataFile);                                    //  //
-                        reader = new BufferedReader(new InputStreamReader(inputStream));                //  //
-                        String line = reader.readLine();                                                //  //
-                        while (line != null) {                                                          //  //
-                            lines = lines + 1;                                                          //  //
-                            line = reader.readLine();                                                   //  //
-                        }                                                                               //  //
-                        lines = lines / 5;                                                              //  //
-                                                                                                        //  //
-                        Log.i("Lines", Integer.toString(lines));                                        //  //
-                    } else {                                                                            //  //
-                        Log.i("Running", "Yes");                                                        //  //
-                        product_data = new Product[lines];                                              //  //
-                        Log.i("Num of Items",Integer.toString(product_data.length));                    //  //
-                        inputStream = new FileInputStream(dataFile);                                    //  //
-                        reader = new BufferedReader(new InputStreamReader(inputStream));                //  //
-                        String line = reader.readLine();                                                //  //
-                        int pImg = 0;                                                                   //  //
-                        String pTitle = "";                                                             //  //
-                        String pSrtDesc = "";                                                           //  //
-                        String pProductNum = "";                                                        //  //
-                        String pCategory = "";                                                          //  //
-                        int pCount = 0;                                                                 //  //
-                        int iCount = 0;                                                                 //  //
-                        while (line != null) {                                                          //  //
-                            Log.i("Line not Null", "True");                                             //  //
-                            switch (pCount) {                                                           //  //
-                                case 0:                                                                 //  //
-                                    pImg = Integer.parseInt(line);                                      //  //
-                                    Log.i("pImg",Integer.toString(pImg));                               //  //
-                                    break;                                                              //  //
-                                case 1:                                                                 //  //
-                                    pTitle = line;                                                      //  //
-                                    Log.i("pTitle",pTitle);                                             //  //
-                                    break;                                                              //  //
-                                case 2:                                                                 //  //
-                                    pSrtDesc = line;                                                    //  //
-                                    Log.i("pSrtDesc",pSrtDesc);                                         //  //
-                                    break;                                                              //  //
-                                case 3:                                                                 //  //
-                                    pProductNum = line;                                                 //  //
-                                    Log.i("pProductNum", pProductNum);                                  //  //
-                                    break;                                                              //  //
-                                case 4:                                                                 //  //
-                                    pCategory = line;                                                   //  //
-                                    Log.i("pCategory", pCategory);                                      //  //
-                            }                                                                           //  //
-                            Log.i("pCount",Integer.toString(pCount));                                   //  //
-                            Log.i("iCount",Integer.toString(iCount));                                   //  //
-                            if (pCount == 4) {                                                          //  //
-                                product_data[iCount] = new Product(pImg, pTitle, pSrtDesc,              //  //
-                                        pProductNum, pCategory);                                        //  //
-                                Log.i("ProNum", Integer.toString(iCount));                              //  //
-                                Log.i("Image", Integer.toString(product_data[iCount].image));           //  //
-                                Log.i("Title", product_data[iCount].title);                             //  //
-                                Log.i("ShortDesc", product_data[iCount].shortDesc);                     //  //
-                                Log.i("Category", product_data[iCount].category);                       //  //
-                                iCount = iCount + 1;                                                    //  //
-                                pCount = 0;                                                             //  //
-                                                                                                        //  //
-                            } else {                                                                    //  //
-                                pCount = pCount + 1;                                                    //  //
-                            }                                                                           //  //
-                                                                                                        //  //
-                            line = reader.readLine();                                                   //  //
-                                                                                                        //  //
-                        }                                                                               //  //
-                    }                                                                                   //  //
-                }                                                                                       //  //
-                                                                                                        //  //
-                                                                                                        //  //
-                inputStream.close();                                                                    //  //
-            }catch (Exception e) {                                                                      //  //
-                e.printStackTrace();                                                                    //  //
-            }                                                                                           //  //
-            //////////////////////////////////////////////////////////////////////////////////////////////  //
-                                                                                                            //
-        }                                                                                                   //
-                                                                                                            //
+
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //////////////////////////////////////////////////////////////////////////////////////////
+
+
+            ////// Writes External File //////////////////////////////////////////////////////////////
+            FileOutputStream outputStream = null;
+
+            String writeOut = "";
+
+            int lineCount = 0;
+
+            try {
+
+                outputStream = new FileOutputStream(dataFile);
+
+                for (int i = 0; i < product_data.length; i++) {
+
+                    for (int p = 0; p < 5; p++) {
+
+                        switch (p){
+                            case 0:
+                                writeOut = Integer.toString(product_data[i].image) + "\n";
+                                Log.i("WriteOut", writeOut);
+                                break;
+                            case 1:
+                                writeOut = product_data[i].title + "\n";
+                                Log.i("WriteOut", writeOut);
+                                break;
+                            case 2:
+                                writeOut = product_data[i].shortDesc + "\n";
+                                Log.i("WriteOut", writeOut);
+                                break;
+                            case 3:
+                                writeOut = product_data[i].productSystNum + "\n";
+                                Log.i("WriteOut", writeOut);
+                                break;
+                            case 4:
+                                writeOut = product_data[i].category + "\n";
+                                Log.i("WriteOut", writeOut);
+                                break;
+                        }
+
+                        lineCount = lineCount + 1;
+
+                        outputStream.write(writeOut.getBytes());
+
+
+                    }
+                }
+                lineCount = lineCount / 5;
+                outputStream.close();
+                Log.i("LineCount", Integer.toString(lineCount));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //////////////////////////////////////////////////////////////////////////////////////////
+
+        }else{
+
+            /////// Reads in file created above on app start if file exists //////////////////////////////
+            Log.i("File Exists","true");
+
+            FileInputStream inputStream = null;
+            BufferedReader reader = null;
+            try{
+                int lines = 0;
+
+                for (int c = 1; c < 3; c++) {
+                    if (c == 1) {
+                        inputStream = new FileInputStream(dataFile);
+                        reader = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = reader.readLine();
+                        while (line != null) {
+                            lines = lines + 1;
+                            line = reader.readLine();
+                        }
+                        lines = lines / 5;
+
+                        Log.i("Lines", Integer.toString(lines));
+                    } else {
+                        Log.i("Running", "Yes");
+                        product_data = new Product[lines];
+                        Log.i("Num of Items",Integer.toString(product_data.length));
+                        inputStream = new FileInputStream(dataFile);
+                        reader = new BufferedReader(new InputStreamReader(inputStream));
+                        String line = reader.readLine();
+                        int pImg = 0;
+                        String pTitle = "";
+                        String pSrtDesc = "";
+                        String pProductNum = "";
+                        String pCategory = "";
+                        int pCount = 0;
+                        int iCount = 0;
+                        while (line != null) {
+                            Log.i("Line not Null", "True");
+                            switch (pCount) {
+                                case 0:
+                                    pImg = Integer.parseInt(line);
+                                    Log.i("pImg",Integer.toString(pImg));
+                                    break;
+                                case 1:
+                                    pTitle = line;
+                                    Log.i("pTitle",pTitle);
+                                    break;
+                                case 2:
+                                    pSrtDesc = line;
+                                    Log.i("pSrtDesc",pSrtDesc);
+                                    break;
+                                case 3:
+                                    pProductNum = line;
+                                    Log.i("pProductNum", pProductNum);
+                                    break;
+                                case 4:
+                                    pCategory = line;
+                                    Log.i("pCategory", pCategory);
+                            }
+                            Log.i("pCount",Integer.toString(pCount));
+                            Log.i("iCount",Integer.toString(iCount));
+                            if (pCount == 4) {
+                                product_data[iCount] = new Product(pImg, pTitle, pSrtDesc,
+                                        pProductNum, pCategory);
+                                Log.i("ProNum", Integer.toString(iCount));
+                                Log.i("Image", Integer.toString(product_data[iCount].image));
+                                Log.i("Title", product_data[iCount].title);
+                                Log.i("ShortDesc", product_data[iCount].shortDesc);
+                                Log.i("Category", product_data[iCount].category);
+                                iCount = iCount + 1;
+                                pCount = 0;
+
+                            } else {
+                                pCount = pCount + 1;
+                            }
+
+                            line = reader.readLine();
+
+                        }
+                    }
+                }
+
+
+                inputStream.close();
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            //////////////////////////////////////////////////////////////////////////////////////////////
+
+        }
+
         //////////////// End of Initial Data Creation ////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         /////////////// Product List View  ///////////////////////////////////////////////////////////
-                                                                                                    //
-        /////// Creates List and Adapter /////////////////////////////////////////                  //
-        adapter = new ProductAdapter(this, R.layout.row, product_data);         //                  //
-        productListV = (ListView)findViewById(R.id.mainProductLV);              //                  //
-        productListV.setAdapter(adapter);                                       //                  //
-        //////////////////////////////////////////////////////////////////////////                  //
-                                                                                                    //
+
+        /////// Creates List and Adapter /////////////////////////////////////////
+        adapter = new ProductAdapter(this, R.layout.row, product_data);
+        productListV = (ListView)findViewById(R.id.mainProductLV);
+        productListV.setAdapter(adapter);
+        //////////////////////////////////////////////////////////////////////////
+
         productListV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {                       //
-                                                                                                    //
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 if(menuBtn.getTag() == "1") {
 
-                    Intent intent = new Intent(getApplicationContext(), ProductFullView.class);     //
+                    Intent intent = new Intent(getApplicationContext(), ProductFullView.class);
 
                     if (viewWishListBtn.getTag().equals("1")) {
-                        if (checkProd != null) {                                                        //
-                            int c = 0;                                                                  //
-                            for (int i = 0; i < checkProd.length; i++) {                                //
-                                if (c == position && checkProd[i] == 1) {                               //
-                                    intent.putExtra("item", Integer.toString(i));                       //
-                                    break;                                                              //
-                                }                                                                       //
-                                if (checkProd[i] == 1) {                                                //
-                                    c = c + 1;                                                          //
-                                }                                                                       //
-                            }                                                                           //
-                            if (c == 0) {                                                               //
-                                intent.putExtra("item", Integer.toString(position));                    //
-                            }                                                                           //
-                        } else {                                                                        //
-                            intent.putExtra("item", Integer.toString(position));                        //
+                        if (checkProd != null) {
+                            int c = 0;
+                            for (int i = 0; i < checkProd.length; i++) {
+                                if (c == position && checkProd[i] == 1) {
+                                    intent.putExtra("item", Integer.toString(i));
+                                    break;
+                                }
+                                if (checkProd[i] == 1) {
+                                    c = c + 1;
+                                }
+                            }
+                            if (c == 0) {
+                                intent.putExtra("item", Integer.toString(position));
+                            }
+                        } else {
+                            intent.putExtra("item", Integer.toString(position));
                         }
 
                     }else{
@@ -321,23 +321,23 @@ public class MainShopActivity extends AppCompatActivity {
                             }
                         }
                     }
-                                                                                                    //
-                    startActivity(intent);                                                          //
-                    Log.i("ID OnClick", Long.toString(id));                                         //
-                }                                                                                   //
-                                                                                                    //
+
+                    startActivity(intent);
+                    Log.i("ID OnClick", Long.toString(id));
+                }
+
             }
-        });                                                                                         //
+        });
         //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        /////////////////////////////// MENU FUNCTIONS /////////////////////////////////////////////////////////
-                                                                                                              //
-        //////////////////// MENU BUTTON /////////////////////////////////////////////////////                //
+        /////////////////////////////// MENU FUNCTIONS ////////////////////////////////////////////////
+
+        //////////////////// MENU BUTTON /////////////////////////////////////////////////////
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {                                                 //                //
-                                                                                            //
+            public void onClick(View v) {
+
                 if(menuBtn.getTag()==("1")) {
                     menuBtn.setBackgroundResource(R.drawable.exitbtnimg);
                     menuBtn.setTag("2");
@@ -584,6 +584,30 @@ public class MainShopActivity extends AppCompatActivity {
 
                     viewWishListBtn.setTag("1");
                 }
+            }
+        });
+
+        clearWishListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filename = "wishList.txt";
+                File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+                Log.i("FilePath",wishFile.getAbsolutePath());
+                wishFile.delete();
+
+                viewWishListBtn.setText("View Wishlist");
+                clearWishListBtn.setVisibility(View.GONE);
+                sendWishListBtn.setVisibility(View.GONE);
+                searchText.setVisibility(View.VISIBLE);
+                searchBtn.setVisibility(View.VISIBLE);
+                clearSearchBtn.setVisibility(View.VISIBLE);
+                drinkwareCK.setVisibility(View.VISIBLE);
+                penCK.setVisibility(View.VISIBLE);
+                categorySwitch.setVisibility(View.VISIBLE);
+                categoryTxt.setVisibility(View.VISIBLE);
+                resetListView();
+
+                viewWishListBtn.setTag("1");
             }
         });
 
