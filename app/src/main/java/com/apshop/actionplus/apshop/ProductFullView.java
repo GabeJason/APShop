@@ -175,6 +175,7 @@ public class ProductFullView extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         vrmodeBtn.setBackgroundResource(R.drawable.googlecardboard);
                         Intent vrmode = new Intent(getApplicationContext(), VrModeActivity.class);
+                        vrmode.putExtra("productNum",Integer.toString(ProductNum));
                         startActivity(vrmode);
                         Log.i("Cardboard", "Down");
                         break;

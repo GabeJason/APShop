@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class VrModeActivity extends Activity {
 
     WebView myWebView;
+    int productNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class VrModeActivity extends Activity {
         myWebView = (WebView) findViewById(R.id.vrWebView);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        productNum = Integer.parseInt(getIntent().getExtras().getString("productNum"));
 
         myWebView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +45,13 @@ public class VrModeActivity extends Activity {
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         if(isConnected) {
-            myWebView.loadUrl("https://sketchfab.com/models/c210137d7106440f974cad684819c3bf/embed?cardboard=1");
+            if(productNum==3) {
+                myWebView.loadUrl("https://sketchfab.com/models/00c8a4f6ba3244ca82a73bf37f8063a7/embed?cardboard=1");
+            }else if(productNum==4){
+                myWebView.loadUrl("https://sketchfab.com/models/8a9f5f7f2cfa420281d91458c8046770/embed?cardboard=1");
+            }else {
+                myWebView.loadUrl("https://sketchfab.com/models/00c8a4f6ba3244ca82a73bf37f8063a7/embed?cardboard=1");
+            }
         }else{
             Toast.makeText(getApplicationContext(), "Connect to Data or WIFI network and try again.", Toast.LENGTH_LONG).show();
         }
