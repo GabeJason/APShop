@@ -6,4 +6,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="title_activity_vr_mode">VrModeActivity</string>
+    <string name="vrmodeControls">Before pressing start make sure your phone is facing the direction you consider to be the forward position. When you are in the vr world use the circles to point at a spot on the grid. Follow this by clicking on your screen to move to that spot. This gives you the opportunity to navigate around the object.</string>
+    <string name="vrmodeDisc">*Items may not be represented 100% accurately. These models were made to imitate the look of the item as closely as possible.</string>
 </resources>

@@ -15,5 +15,63 @@
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/vrWebView" />
+        android:id="@+id/vrWebView"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whitecolor"
+        android:id="@+id/vrmodeIntroLay">
+
+        <TextView
+            android:text="Controls"
+            android:textColor="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vrmodeControlsTV"
+            android:layout_alignParentTop="true"
+            android:textSize="30dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="60dp"/>
+
+        <TextView
+            android:text="@string/vrmodeControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/vrmodeControlsTxtTV"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@id/vrmodeControlsTV"
+            android:textSize="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="60dp"/>
+
+        <Button
+            android:text="Continue >"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vrmodeContBtn"
+            android:layout_below="@id/vrmodeControlsTxtTV"
+            android:paddingLeft="60dp"
+            android:paddingTop="10dp"
+            android:textSize="25dp"
+            android:textColor="@color/greenAccent"
+            android:background="@color/whitecolor" />
+
+        <TextView
+            android:text="@string/vrmodeDisc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/vrmodeDiscTV"
+            android:paddingLeft="15dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    </RelativeLayout>
 </FrameLayout>
