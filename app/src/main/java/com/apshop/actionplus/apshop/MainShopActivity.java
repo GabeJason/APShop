@@ -40,7 +40,7 @@ public class MainShopActivity extends AppCompatActivity {
     RelativeLayout menuLay;
     LinearLayout menuBarView;
     EditText searchText;
-    Button viewWishListBtn, clearWishListBtn, sendWishListBtn;
+    Button viewWishListBtn, clearWishListBtn, sendWishListBtn, infoBtn;
     int prodSearchCount;
     int checkProd[];
     ProductAdapter adapter;
@@ -67,6 +67,7 @@ public class MainShopActivity extends AppCompatActivity {
         viewWishListBtn.setTag("1");
         clearWishListBtn = (Button)findViewById(R.id.clearwishlistBtn);
         sendWishListBtn = (Button)findViewById(R.id.sendWishListBtn);
+        infoBtn = (Button)findViewById(R.id.menuInfoBtn);
         ///////////////////////////////////////////////////
 
 
@@ -608,6 +609,14 @@ public class MainShopActivity extends AppCompatActivity {
                 resetListView();
 
                 viewWishListBtn.setTag("1");
+            }
+        });
+
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent infoIntent = new Intent(getApplicationContext(), InfoActivity.class);
+                startActivity(infoIntent);
             }
         });
 

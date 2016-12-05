@@ -21,16 +21,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainShopActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ProductFullView"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainShopActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductFullView"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".VrModeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_vr_mode"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+        <activity android:name=".InfoActivity"></activity>
     </application>
 
 </manifest>

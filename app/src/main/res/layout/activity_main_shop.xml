@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Action Plus"
+            android:text="Action Plus Ideas"
             android:textSize="30sp"
             android:textColor="@color/whitecolor"
             android:padding="10dp"
@@ -173,6 +173,12 @@
                 android:text="Send Wishlist"
                 android:id="@+id/sendWishListBtn"
                 android:visibility="gone"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Info"
+                android:id="@+id/menuInfoBtn"/>
 
         </LinearLayout>
         
