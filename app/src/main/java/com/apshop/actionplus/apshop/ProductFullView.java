@@ -23,7 +23,7 @@ public class ProductFullView extends AppCompatActivity {
 
     int ProductNum = 0;
     ImageButton exitBtn;
-    Button wishBtn, vrmodeBtn;
+    ImageButton wishBtn, vrmodeBtn;
     int pImg;
     String pTitle;
     String pSrtDesc;
@@ -40,14 +40,14 @@ public class ProductFullView extends AppCompatActivity {
         ProductNum = Integer.parseInt(getIntent().getExtras().getString("item"));
 
         exitBtn = (ImageButton) findViewById(R.id.exitItemBtn);
-        wishBtn = (Button) findViewById(R.id.wishPFVBTN);
+        wishBtn = (ImageButton) findViewById(R.id.wishPFVBTN);
         wishBtn.setTag("1");
-        vrmodeBtn = (Button) findViewById(R.id.vrmodePFVBTN);
+        vrmodeBtn = (ImageButton) findViewById(R.id.vrmodePFVBTN);
 
         ImageView productImg = (ImageView) findViewById(R.id.imagePFV);
         TextView productTitle = (TextView) findViewById(R.id.titlePFVTV);
         TextView productDesc = (TextView) findViewById(R.id.descPFVTV);
-        TextView productABTitle = (TextView) findViewById(R.id.itemNameABTV);
+        //TextView productABTitle = (TextView) findViewById(R.id.itemNameABTV);
         TextView prodNumTV = (TextView) findViewById(R.id.prodNumPFVTV);
         TextView prodCatTV = (TextView) findViewById(R.id.prodCatPFVTV);
 
@@ -132,9 +132,9 @@ public class ProductFullView extends AppCompatActivity {
                     //
                     productImg.setImageResource(pImg);
                     productTitle.setText(pTitle);
-                    productABTitle.setText(pTitle);
+                    //productABTitle.setText(pTitle);
                     productDesc.setText(pSrtDesc);
-                    prodNumTV.setText("Item Number: " + sysProdNum);
+                    prodNumTV.setText(sysProdNum);
                     prodCatTV.setText(pCategory);
                 }
             }
