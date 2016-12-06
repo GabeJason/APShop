@@ -69,7 +69,7 @@
         android:elevation="1dp">
         
         <LinearLayout
-            android:layout_width="170dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_alignParentEnd="true"
@@ -82,8 +82,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/searchET"
-                android:textColor="@android:color/black"
-                android:theme="@style/editTextStyle"/>
+                android:textColor="@color/colorPrimary"
+                android:theme="@style/editTextStyle"
+                android:hint="Search"
+                android:textColorHint="#555555"
+                android:textSize="18sp"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -91,12 +94,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="45dp"
-                    android:text="Category"
-                    android:textSize="20sp"
+                    android:text="CATEGORY"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:gravity= "center"
-                    android:textColor="#000"
+                    android:textColor="@color/colorPrimaryDark"
                     android:paddingLeft="5dp"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/categoryTxt"/>
@@ -130,55 +134,75 @@
                 android:textSize="18sp"
                 android:theme="@style/checkBoxStyle"/>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal">-->
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="55dp"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:id="@+id/searchBtn"
-                    android:layout_weight="1"
-                    android:background="@drawable/search"/>
+                    android:background="@color/whitecolor"
+                    android:text="Search"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark"/>
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="55dp"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:id="@+id/clearSearchBtn"
-                    android:layout_weight="1"
-                    android:background="@drawable/clearsearch"/>
+                    android:background="@color/whitecolor"
+                    android:text="Clear Search"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimaryDark"/>
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View Wishlist"
+                android:text="View Favroites"
                 android:id="@+id/viewwishListBtn"
-                android:tag="1"/>
+                android:tag="1"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@color/whitecolor"
+                android:layout_margin="10dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Clear Wishlist"
+                android:text="Clear Favorites"
                 android:id="@+id/clearwishlistBtn"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@color/whitecolor"
+                android:layout_margin="10dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Send Wishlist"
+                android:text="Send Favorites"
                 android:id="@+id/sendWishListBtn"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@color/whitecolor"
+                android:layout_margin="10dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Info"
-                android:id="@+id/menuInfoBtn"/>
+                android:id="@+id/menuInfoBtn"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@color/whitecolor"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
         

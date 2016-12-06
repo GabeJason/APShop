@@ -1,9 +1,11 @@
 package com.apshop.actionplus.apshop;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,11 +38,11 @@ public class MainShopActivity extends AppCompatActivity {
     private ListView productListV;
     private Product product_data[];
     Product wishProduct[];
-    ImageButton menuBtn, categorySwitch, searchBtn, clearSearchBtn;
+    ImageButton menuBtn, categorySwitch;
     RelativeLayout menuLay;
     LinearLayout menuBarView;
     EditText searchText;
-    Button viewWishListBtn, clearWishListBtn, sendWishListBtn, infoBtn;
+    Button viewWishListBtn, clearWishListBtn, sendWishListBtn, infoBtn, searchBtn, clearSearchBtn;
     int prodSearchCount;
     int checkProd[];
     ProductAdapter adapter;
@@ -61,8 +63,8 @@ public class MainShopActivity extends AppCompatActivity {
         categorySwitch = (ImageButton)findViewById(R.id.categorySwitchBtn);
         categorySwitch.setTag("1");
 
-        clearSearchBtn = (ImageButton)findViewById(R.id.clearSearchBtn);
-        searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+        clearSearchBtn = (Button)findViewById(R.id.clearSearchBtn);
+        searchBtn = (Button)findViewById(R.id.searchBtn);
         viewWishListBtn = (Button)findViewById(R.id.viewwishListBtn);
         viewWishListBtn.setTag("1");
         clearWishListBtn = (Button)findViewById(R.id.clearwishlistBtn);
@@ -101,7 +103,9 @@ public class MainShopActivity extends AppCompatActivity {
         String filename = "ProductData.txt";
         File dataFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
         Log.i("FilePath",dataFile.getAbsolutePath());
-        dataFile.delete();
+        if (checkIsUpdated()){
+            dataFile.delete();
+        }
         //////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -348,6 +352,9 @@ public class MainShopActivity extends AppCompatActivity {
                         categorySwitch.setBackgroundResource(R.drawable.categoryclose);
                         drinkwareCK.setVisibility(View.VISIBLE);
                         penCK.setVisibility(View.VISIBLE);
+                    }else{
+                        categorySwitch.setTag("1");
+                        categorySwitch.setBackgroundResource(R.drawable.categoryopen);
                     }
                     //newTimer();
                    // menuBarView.animate().translationX(500);
@@ -357,47 +364,64 @@ public class MainShopActivity extends AppCompatActivity {
             }
         });
 
-        clearSearchBtn.setOnClickListener(new View.OnClickListener() {
+        clearSearchBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                resetListView();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        clearSearchBtn.setTextColor(Color.parseColor("#964bb4"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        clearSearchBtn.setTextColor(Color.parseColor("#0b253e"));
+                        resetListView();
+                        break;
+                }
+                return false;
             }
         });
 
-        searchBtn.setOnClickListener(new View.OnClickListener() {
+        searchBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        searchBtn.setTextColor(Color.parseColor("#964bb4"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        searchBtn.setTextColor(Color.parseColor("#0b253e"));
+                        String searchTxt = String.valueOf(searchText.getText());
+                        Log.i("Search Text", searchTxt);
+                        noSearchResults.setVisibility(View.GONE);
+                        productListV.setVisibility(View.VISIBLE);
 
-                String searchTxt = String.valueOf(searchText.getText());
-                Log.i("Search Text", searchTxt);
-                noSearchResults.setVisibility(View.GONE);
-                productListV.setVisibility(View.VISIBLE);
+                        if(!searchTxt.equals("")) {
+                            prodSearchCount = 0;
+                            checkProd = new int[product_data.length];
 
-                if(!searchTxt.equals("")) {
-                    prodSearchCount = 0;
-                    checkProd = new int[product_data.length];
+                            for (int i = 0; i < product_data.length; i++) {
+                                Log.i("Product Num", Integer.toString(i));
+                                compString(product_data[i].title.toUpperCase(), searchTxt.toUpperCase(), i);
 
-                    for (int i = 0; i < product_data.length; i++) {
-                        Log.i("Product Num", Integer.toString(i));
-                        compString(product_data[i].title.toUpperCase(), searchTxt.toUpperCase(), i);
+                            }
 
-                    }
+                            checkCheckBoxes(true);
 
-                    checkCheckBoxes(true);
+                            settingNewAdapter(searchTxt);
+                        }else if(drinkwareCK.isChecked() || penCK.isChecked()) {
 
-                    settingNewAdapter(searchTxt);
-                }else if(drinkwareCK.isChecked() || penCK.isChecked()) {
+                            prodSearchCount = 0;
+                            checkProd = new int[product_data.length];
 
-                        prodSearchCount = 0;
-                        checkProd = new int[product_data.length];
+                            checkCheckBoxes(false);
 
-                        checkCheckBoxes(false);
+                            settingNewAdapter(searchTxt);
 
-                        settingNewAdapter(searchTxt);
-
-                }else{
-                    resetListView();
+                        }else{
+                            resetListView();
+                        }
+                        break;
                 }
+                return false;
             }
         });
 
@@ -444,179 +468,243 @@ public class MainShopActivity extends AppCompatActivity {
             }
         });
 
-        viewWishListBtn.setOnClickListener(new View.OnClickListener() {
+        viewWishListBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if(viewWishListBtn.getTag() == "1"){
-                    viewWishListBtn.setText("Continue Shopping");
-                    clearWishListBtn.setVisibility(View.VISIBLE);
-                    sendWishListBtn.setVisibility(View.VISIBLE);
-                    searchText.setVisibility(View.GONE);
-                    searchBtn.setVisibility(View.GONE);
-                    clearSearchBtn.setVisibility(View.GONE);
-                    drinkwareCK.setVisibility(View.GONE);
-                    penCK.setVisibility(View.GONE);
-                    categorySwitch.setVisibility(View.GONE);
-                    categoryTxt.setVisibility(View.GONE);
-                    setMenuLayClose();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        viewWishListBtn.setTextColor(Color.parseColor("#964bb4"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        viewWishListBtn.setTextColor(Color.parseColor("#0b253e"));
+                        if(viewWishListBtn.getTag() == "1"){
+                            viewWishListBtn.setText("All Products");
+                            clearWishListBtn.setVisibility(View.VISIBLE);
+                            sendWishListBtn.setVisibility(View.VISIBLE);
+                            searchText.setVisibility(View.GONE);
+                            searchBtn.setVisibility(View.GONE);
+                            clearSearchBtn.setVisibility(View.GONE);
+                            drinkwareCK.setVisibility(View.GONE);
+                            penCK.setVisibility(View.GONE);
+                            categorySwitch.setVisibility(View.GONE);
+                            categoryTxt.setVisibility(View.GONE);
+                            setMenuLayClose();
 
-                    viewWishListBtn.setTag("2");
+                            viewWishListBtn.setTag("2");
 
-                    String filename = "wishList.txt";
-                    File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
-                    Log.i("FilePath",wishFile.getAbsolutePath());
+                            String filename = "wishList.txt";
+                            File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+                            Log.i("FilePath",wishFile.getAbsolutePath());
 
-                    if (!wishFile.exists()){
-                        noSearchResults.setText("No Wishlist Found \n Start Adding Items to View Your Wishlist");
-                        noSearchResults.setVisibility(View.VISIBLE);
-                        productListV.setVisibility(View.GONE);
-                    }else{
-
-                        Log.i("File Exists","true");
-
-                        FileInputStream inputStream = null;
-                        BufferedReader reader = null;
-                        try{
-                            int lines = 0;
-
-                            for (int c = 1; c < 3; c++) {
-                                if (c == 1) {
-                                    inputStream = new FileInputStream(wishFile);
-                                    reader = new BufferedReader(new InputStreamReader(inputStream));
-                                    String line = reader.readLine();
-                                    while (line != null) {
-                                        lines = lines + 1;
-                                        line = reader.readLine();
-                                    }
-                                    lines = lines / 5;
-
-                                    Log.i("Lines", Integer.toString(lines));
-                                } else {
-                                    Log.i("Running", "Yes");
-                                    wishProduct = new Product[lines];
-                                    Log.i("Num of Items",Integer.toString(wishProduct.length));
-                                    inputStream = new FileInputStream(wishFile);
-                                    reader = new BufferedReader(new InputStreamReader(inputStream));
-                                    String line = reader.readLine();
-                                    int pImg = 0;
-                                    String pTitle = "";
-                                    String pSrtDesc = "";
-                                    String pProductNum = "";
-                                    String pCategory = "";
-                                    int pCount = 0;
-                                    int iCount = 0;
-                                    prodSearchCount = 0;
-                                    while (line != null) {
-                                        Log.i("Line not Null", "True");
-                                        switch (pCount) {
-                                            case 0:
-                                                pImg = Integer.parseInt(line);
-                                                Log.i("pImg",Integer.toString(pImg));
-                                                break;
-                                            case 1:
-                                                pTitle = line;
-                                                Log.i("pTitle",pTitle);
-                                                break;
-                                            case 2:
-                                                pSrtDesc = line;
-                                                Log.i("pSrtDesc",pSrtDesc);
-                                                break;
-                                            case 3:
-                                                pProductNum = line;
-                                                Log.i("pProductNum", pProductNum);
-                                                break;
-                                            case 4:
-                                                pCategory = line;
-                                                Log.i("pCategory", pCategory);
-                                        }
-                                        Log.i("pCount",Integer.toString(pCount));
-                                        Log.i("iCount",Integer.toString(iCount));
-                                        if (pCount == 4) {
-                                            wishProduct[iCount] = new Product(pImg, pTitle, pSrtDesc,
-                                                    pProductNum, pCategory);
-                                            Log.i("ProNum", Integer.toString(iCount));
-                                            Log.i("Image", Integer.toString(wishProduct[iCount].image));
-                                            Log.i("Title", wishProduct[iCount].title);
-                                            Log.i("ShortDesc", wishProduct[iCount].shortDesc);
-                                            Log.i("Category", wishProduct[iCount].category);
-                                            iCount = iCount + 1;
-                                            pCount = 0;
-                                            prodSearchCount = prodSearchCount + 1;
-                                        } else {
-                                            pCount = pCount + 1;
-                                        }
-
-                                        line = reader.readLine();
-
-                                    }
-                                }
+                            if(checkIsUpdated()){
+                                wishFile.delete();
                             }
 
-                            inputStream.close();
-
-                            if(lines != 0){
-                                adapter.data = wishProduct;
-                                ProductAdapter tempAdapt = new ProductAdapter(adapter);
-                                productListV.setAdapter(tempAdapt);
-                            }else{
-                                noSearchResults.setText("No Wishlist Found \n Start Adding Items to View Your Wishlist");
+                            if (!wishFile.exists()){
+                                noSearchResults.setText("No Favorites Found \n Press the heart on your favorite items to view them here.");
                                 noSearchResults.setVisibility(View.VISIBLE);
-                                productListV.setVisibility(View.GONE );
+                                productListV.setVisibility(View.GONE);
+                            }else{
+
+                                Log.i("File Exists","true");
+
+                                FileInputStream inputStream = null;
+                                BufferedReader reader = null;
+                                try{
+                                    int lines = 0;
+
+                                    for (int c = 1; c < 3; c++) {
+                                        if (c == 1) {
+                                            inputStream = new FileInputStream(wishFile);
+                                            reader = new BufferedReader(new InputStreamReader(inputStream));
+                                            String line = reader.readLine();
+                                            while (line != null) {
+                                                lines = lines + 1;
+                                                line = reader.readLine();
+                                            }
+                                            lines = lines / 5;
+
+                                            Log.i("Lines", Integer.toString(lines));
+                                        } else {
+                                            Log.i("Running", "Yes");
+                                            wishProduct = new Product[lines];
+                                            Log.i("Num of Items",Integer.toString(wishProduct.length));
+                                            inputStream = new FileInputStream(wishFile);
+                                            reader = new BufferedReader(new InputStreamReader(inputStream));
+                                            String line = reader.readLine();
+                                            int pImg = 0;
+                                            String pTitle = "";
+                                            String pSrtDesc = "";
+                                            String pProductNum = "";
+                                            String pCategory = "";
+                                            int pCount = 0;
+                                            int iCount = 0;
+                                            prodSearchCount = 0;
+                                            while (line != null) {
+                                                Log.i("Line not Null", "True");
+                                                switch (pCount) {
+                                                    case 0:
+                                                        pImg = Integer.parseInt(line);
+                                                        Log.i("pImg",Integer.toString(pImg));
+                                                        break;
+                                                    case 1:
+                                                        pTitle = line;
+                                                        Log.i("pTitle",pTitle);
+                                                        break;
+                                                    case 2:
+                                                        pSrtDesc = line;
+                                                        Log.i("pSrtDesc",pSrtDesc);
+                                                        break;
+                                                    case 3:
+                                                        pProductNum = line;
+                                                        Log.i("pProductNum", pProductNum);
+                                                        break;
+                                                    case 4:
+                                                        pCategory = line;
+                                                        Log.i("pCategory", pCategory);
+                                                }
+                                                Log.i("pCount",Integer.toString(pCount));
+                                                Log.i("iCount",Integer.toString(iCount));
+                                                if (pCount == 4) {
+                                                    wishProduct[iCount] = new Product(pImg, pTitle, pSrtDesc,
+                                                            pProductNum, pCategory);
+                                                    Log.i("ProNum", Integer.toString(iCount));
+                                                    Log.i("Image", Integer.toString(wishProduct[iCount].image));
+                                                    Log.i("Title", wishProduct[iCount].title);
+                                                    Log.i("ShortDesc", wishProduct[iCount].shortDesc);
+                                                    Log.i("Category", wishProduct[iCount].category);
+                                                    iCount = iCount + 1;
+                                                    pCount = 0;
+                                                    prodSearchCount = prodSearchCount + 1;
+                                                } else {
+                                                    pCount = pCount + 1;
+                                                }
+
+                                                line = reader.readLine();
+
+                                            }
+                                        }
+                                    }
+
+                                    inputStream.close();
+
+                                    if(lines != 0){
+                                        adapter.data = wishProduct;
+                                        ProductAdapter tempAdapt = new ProductAdapter(adapter);
+                                        productListV.setAdapter(tempAdapt);
+                                    }else{
+                                        noSearchResults.setText("No Favorites Found \n" +
+                                                " Press the heart on your favorite items to view them here.");
+                                        noSearchResults.setVisibility(View.VISIBLE);
+                                        productListV.setVisibility(View.GONE );
+                                    }
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
                             }
-                        }catch (Exception e) {
-                            e.printStackTrace();
+
+
+                        }else{
+                            viewWishListBtn.setText("View Favorites");
+                            clearWishListBtn.setVisibility(View.GONE);
+                            sendWishListBtn.setVisibility(View.GONE);
+                            searchText.setVisibility(View.VISIBLE);
+                            searchBtn.setVisibility(View.VISIBLE);
+                            clearSearchBtn.setVisibility(View.VISIBLE);
+                            drinkwareCK.setVisibility(View.VISIBLE);
+                            penCK.setVisibility(View.VISIBLE);
+                            categorySwitch.setVisibility(View.VISIBLE);
+                            categoryTxt.setVisibility(View.VISIBLE);
+                            resetListView();
+
+                            viewWishListBtn.setTag("1");
                         }
-
-                    }
-
-
-                }else{
-                    viewWishListBtn.setText("View Wishlist");
-                    clearWishListBtn.setVisibility(View.GONE);
-                    sendWishListBtn.setVisibility(View.GONE);
-                    searchText.setVisibility(View.VISIBLE);
-                    searchBtn.setVisibility(View.VISIBLE);
-                    clearSearchBtn.setVisibility(View.VISIBLE);
-                    drinkwareCK.setVisibility(View.VISIBLE);
-                    penCK.setVisibility(View.VISIBLE);
-                    categorySwitch.setVisibility(View.VISIBLE);
-                    categoryTxt.setVisibility(View.VISIBLE);
-                    resetListView();
-
-                    viewWishListBtn.setTag("1");
+                        break;
                 }
+                return false;
             }
         });
 
-        clearWishListBtn.setOnClickListener(new View.OnClickListener() {
+        clearWishListBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                String filename = "wishList.txt";
-                File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
-                Log.i("FilePath",wishFile.getAbsolutePath());
-                wishFile.delete();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        clearWishListBtn.setTextColor(Color.parseColor("#964bb4"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        clearWishListBtn.setTextColor(Color.parseColor("#0b253e"));
 
-                viewWishListBtn.setText("View Wishlist");
-                clearWishListBtn.setVisibility(View.GONE);
-                sendWishListBtn.setVisibility(View.GONE);
-                searchText.setVisibility(View.VISIBLE);
-                searchBtn.setVisibility(View.VISIBLE);
-                clearSearchBtn.setVisibility(View.VISIBLE);
-                drinkwareCK.setVisibility(View.VISIBLE);
-                penCK.setVisibility(View.VISIBLE);
-                categorySwitch.setVisibility(View.VISIBLE);
-                categoryTxt.setVisibility(View.VISIBLE);
-                resetListView();
+                        String filename = "wishList.txt";
+                        File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+                        Log.i("FilePath",wishFile.getAbsolutePath());
+                        wishFile.delete();
 
-                viewWishListBtn.setTag("1");
+                        viewWishListBtn.setText("View Favorites");
+                        clearWishListBtn.setVisibility(View.GONE);
+                        sendWishListBtn.setVisibility(View.GONE);
+                        searchText.setVisibility(View.VISIBLE);
+                        searchBtn.setVisibility(View.VISIBLE);
+                        clearSearchBtn.setVisibility(View.VISIBLE);
+                        drinkwareCK.setVisibility(View.VISIBLE);
+                        penCK.setVisibility(View.VISIBLE);
+                        categorySwitch.setVisibility(View.VISIBLE);
+                        categoryTxt.setVisibility(View.VISIBLE);
+                        resetListView();
+
+                        viewWishListBtn.setTag("1");
+                        break;
+                }
+                return false;
             }
         });
 
-        infoBtn.setOnClickListener(new View.OnClickListener() {
+        sendWishListBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent infoIntent = new Intent(getApplicationContext(), InfoActivity.class);
-                startActivity(infoIntent);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        sendWishListBtn.setTextColor(Color.parseColor("#964bb4"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        sendWishListBtn.setTextColor(Color.parseColor("#0b253e"));
+                        if(productListV.getVisibility() == View.VISIBLE) {
+                            try {
+                                String emailContent = "I would like to learn more about these items: \n\n";
+                                for (int i = 0; i < productListV.getChildCount(); i++) {
+                                    emailContent = emailContent + wishProduct[i].title + "\n" + wishProduct[i].productSystNum + "\n\n";
+                                }
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.setType("plain/text");
+                                email.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@actionplusideas.com"});
+                                email.putExtra(Intent.EXTRA_SUBJECT, "My Action Plus Favorites");
+                                email.putExtra(Intent.EXTRA_TEXT, emailContent);
+                                startActivity(Intent.createChooser(email, ""));
+                            } catch (ActivityNotFoundException activityException) {
+                                Log.e("Sending a Email", "Email failed", activityException);
+                            }
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
+
+        infoBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        infoBtn.setTextColor(Color.parseColor("#964bb4"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        infoBtn.setTextColor(Color.parseColor("#0b253e"));
+                        Intent infoIntent = new Intent(getApplicationContext(), InfoActivity.class);
+                        startActivity(infoIntent);
+                        break;
+                }
+                return false;
             }
         });
 
@@ -714,7 +802,8 @@ public class MainShopActivity extends AppCompatActivity {
     public void resetListView(){
         adapter.data = product_data;
         searchText.setText("");
-        productListV.setAdapter(adapter);
+        ProductAdapter tempAdapt = new ProductAdapter(adapter);
+        productListV.setAdapter(tempAdapt);
         checkProd = null;
         noSearchResults.setVisibility(View.GONE);
         productListV.setVisibility(View.VISIBLE);
@@ -773,6 +862,63 @@ public class MainShopActivity extends AppCompatActivity {
         }else{
             checkProd[w] = 0;
             Log.i("CheckProd", "0");
+        }
+
+    }
+
+    public boolean checkIsUpdated(){
+        String filename = "versionInfo.txt";
+        File verFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
+        Log.i("VerFilePath",verFile.getAbsolutePath());
+
+        int verCode = 0;
+        int versionCode = BuildConfig.VERSION_CODE;
+        Log.i("Version Code", Integer.toString(versionCode));
+
+        if(verFile.exists()) {
+            FileInputStream inputStream = null;
+            BufferedReader reader = null;
+            try {
+                inputStream = new FileInputStream(verFile);
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                verCode = Integer.parseInt(reader.readLine());
+                Log.i("VerCode", Integer.toString(verCode));
+                inputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if(verCode < versionCode){
+                FileOutputStream outputStream = null;
+                String writeOut = "";
+
+                try {
+                    outputStream = new FileOutputStream(verFile);
+                    writeOut = Integer.toString(versionCode);
+                    outputStream.write(writeOut.getBytes());
+                    outputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            FileOutputStream outputStream = null;
+            String writeOut = "";
+
+            try {
+                outputStream = new FileOutputStream(verFile);
+                writeOut = Integer.toString(versionCode);
+                outputStream.write(writeOut.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return false;
+
         }
 
     }

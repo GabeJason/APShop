@@ -145,15 +145,16 @@ public class ProductFullView extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        if(wishItems != null) {
+            for (int i = 0; i < wishItems.length; i++) {
+                if (productTitle.getText().equals(wishItems[i].title)) {
+                    wishBtn.setTag("2");
+                    wishBtn.setBackgroundResource(R.drawable.subwishlist);
+                    itemIndex = i;
+                    break;
+                }
 
-        for (int i = 0; i < wishItems.length; i++) {
-            if (productTitle.getText().equals(wishItems[i].title)) {
-                wishBtn.setTag("2");
-                wishBtn.setBackgroundResource(R.drawable.subwishlist);
-                itemIndex = i;
-                break;
             }
-
         }
 
         exitBtn.setOnClickListener(new View.OnClickListener() {
