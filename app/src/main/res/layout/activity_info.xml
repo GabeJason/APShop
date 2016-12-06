@@ -14,14 +14,14 @@
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:background="@color/colorPrimary"
-        android:id="@+id/customABPFVL">
+        android:id="@+id/customABIPL">
 
         <ImageButton
             android:layout_height="40dp"
             android:background="@drawable/backarrow"
             android:layout_width="40dp"
             android:layout_margin="10dp"
-            android:id="@+id/exitItemBtn"
+            android:id="@+id/exitInfoBtn"
             android:layout_alignParentLeft="true"/>
 
     </RelativeLayout>
@@ -32,8 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:srcCompat="@drawable/actionpluslogo"
-        android:id="@+id/imagePFV"
-        android:layout_below="@id/customABPFVL"
+        android:id="@+id/imageIP"
+        android:layout_below="@id/customABIPL"
         />
 
 
@@ -41,7 +41,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/imagePFV"
+        android:layout_below="@id/imageIP"
         android:background="@drawable/borderpfv"
         >
 
@@ -67,13 +67,39 @@
                 android:textSize="21sp"
                 android:textColor="@color/greenAccent"
                 android:text="Contact Info"/>
-            <TextView
+            <Button
+                android:id="@+id/infoPhoneNumBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/whitecolor"
                 android:textSize="18sp"
-                android:paddingLeft="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="(800) 425-2657\n(704) 536-8337\n"/>
+                android:text="(704) 536-8337"/>
+            <Button
+                android:id="@+id/infoEmailBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whitecolor"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="info@actionplusideas.com"/>
+            <Button
+                android:id="@+id/infoWebBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/whitecolor"
+                android:textSize="18sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="www.ActionPlusIdeas.com"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,14 +108,19 @@
                 android:paddingBottom="10dp"
                 android:textSize="21sp"
                 android:textColor="@color/greenAccent"
-                android:text="Product Number"/>
-            <TextView
+                android:text="Address"/>
+            <Button
+                android:id="@+id/infoAddressBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/whitecolor"
                 android:textSize="18sp"
-                android:id="@+id/prodNumPFVTV"
-                android:paddingLeft="20dp"
-                android:textColor="@color/colorPrimaryDark" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="5222 Monroe Rd\nSuite 100\nCharlotte NC\n28205"/>
 
 
         </LinearLayout>
