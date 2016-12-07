@@ -71,6 +71,8 @@
         android:layout_height="match_parent"
         android:layout_below="@id/imagePFV"
         android:background="@drawable/borderpfv"
+        android:layout_margin="0dp"
+        android:padding="0dp"
         >
 
     <LinearLayout
