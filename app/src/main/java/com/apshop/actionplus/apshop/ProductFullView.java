@@ -72,9 +72,7 @@ public class ProductFullView extends AppCompatActivity {
                     }
                     lines = lines / 5;
 
-                    Log.i("Lines", Integer.toString(lines));
                 } else {
-                    Log.i("Running", "Yes");
                     inputStream = new FileInputStream(dataFile);
                     reader = new BufferedReader(new InputStreamReader(inputStream));
                     String line = reader.readLine();
@@ -86,36 +84,27 @@ public class ProductFullView extends AppCompatActivity {
                     int pCount = 0;
                     int iCount = 0;
                     while (line != null) {
-                        Log.i("Line not Null", "True");
 
                         if (iCount == ProductNum) {
                             switch (pCount) {
                                 case 0:
                                     pImg = Integer.parseInt(line);
-                                    Log.i("pImg", Integer.toString(pImg));
                                     break;
                                 case 1:
                                     pTitle = line;
-                                    Log.i("pTitle", pTitle);
                                     break;
                                 case 2:
                                     pSrtDesc = line;
-                                    Log.i("pSrtDesc", pSrtDesc);
                                     break;
                                 case 3:
                                     sysProdNum = line;
-                                    Log.i("pProdNum", sysProdNum);
                                     break;
                                 case 4:
                                     pCategory = line;
-                                    Log.i("pCategory", pCategory);
                                     break;
                             }
                         }
-                        Log.i("pCount", Integer.toString(pCount));
-                        Log.i("iCount", Integer.toString(iCount));
                         if (pCount == 4) {
-                            Log.i("ProNum", Integer.toString(iCount));
                             iCount = iCount + 1;
                             pCount = 0;
 
@@ -171,14 +160,12 @@ public class ProductFullView extends AppCompatActivity {
                 switch(event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         vrmodeBtn.setBackgroundResource(R.drawable.googlecardboardc);
-                        Log.i("Cardboard", "Down");
                         break;
                     case MotionEvent.ACTION_UP:
                         vrmodeBtn.setBackgroundResource(R.drawable.googlecardboard);
                         Intent vrmode = new Intent(getApplicationContext(), VrModeActivity.class);
                         vrmode.putExtra("productNum",Integer.toString(ProductNum));
                         startActivity(vrmode);
-                        Log.i("Cardboard", "Down");
                         break;
                 }
                 return false;
@@ -231,23 +218,18 @@ public class ProductFullView extends AppCompatActivity {
                             switch (p) {
                                 case 0:
                                     writeOut = Integer.toString(pImg) + "\n";
-                                    Log.i("WriteOut", writeOut);
                                     break;
                                 case 1:
                                     writeOut = pTitle + "\n";
-                                    Log.i("WriteOut", writeOut);
                                     break;
                                 case 2:
                                     writeOut = pSrtDesc + "\n";
-                                    Log.i("WriteOut", writeOut);
                                     break;
                                 case 3:
                                     writeOut = sysProdNum + "\n";
-                                    Log.i("WriteOut", writeOut);
                                     break;
                                 case 4:
                                     writeOut = pCategory + "\n";
-                                    Log.i("WriteOut", writeOut);
                                     break;
                             }
                             outputStream.write(writeOut.getBytes());
@@ -262,11 +244,6 @@ public class ProductFullView extends AppCompatActivity {
 
                         tempList[newIndex] = new Product(pImg, pTitle, pSrtDesc,
                                 sysProdNum, pCategory);
-                        Log.i("ProNum", Integer.toString(newIndex));
-                        Log.i("Image", Integer.toString(tempList[newIndex].image));
-                        Log.i("Title", tempList[newIndex].title);
-                        Log.i("ShortDesc", tempList[newIndex].shortDesc);
-                        Log.i("Category", tempList[newIndex].category);
 
                         wishItems = tempList;
 
@@ -311,23 +288,18 @@ public class ProductFullView extends AppCompatActivity {
                                 switch (p){
                                     case 0:
                                         writeOut = Integer.toString(wishItems[i].image) + "\n";
-                                        Log.i("WriteOut", writeOut);
                                         break;
                                     case 1:
                                         writeOut = wishItems[i].title + "\n";
-                                        Log.i("WriteOut", writeOut);
                                         break;
                                     case 2:
                                         writeOut = wishItems[i].shortDesc + "\n";
-                                        Log.i("WriteOut", writeOut);
                                         break;
                                     case 3:
                                         writeOut = wishItems[i].productSystNum + "\n";
-                                        Log.i("WriteOut", writeOut);
                                         break;
                                     case 4:
                                         writeOut = wishItems[i].category + "\n";
-                                        Log.i("WriteOut", writeOut);
                                         break;
                                 }
                                 lineCount = lineCount + 1;
@@ -336,7 +308,6 @@ public class ProductFullView extends AppCompatActivity {
                         }
                         lineCount = lineCount / 5;
                         outputStream.close();
-                        Log.i("LineCount", Integer.toString(lineCount));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -358,7 +329,6 @@ public class ProductFullView extends AppCompatActivity {
             }
         } else {
 
-            Log.i("File Exists", "true");
 
             FileInputStream inputStream = null;
             BufferedReader reader = null;
@@ -376,11 +346,8 @@ public class ProductFullView extends AppCompatActivity {
                         }
                         lines = lines / 5;
 
-                        Log.i("Lines", Integer.toString(lines));
                     } else {
-                        Log.i("Running", "Yes");
                         wishItems = new Product[lines];
-                        Log.i("Num of Items", Integer.toString(wishItems.length));
                         inputStream = new FileInputStream(wishFile);
                         reader = new BufferedReader(new InputStreamReader(inputStream));
                         String line = reader.readLine();
@@ -392,38 +359,25 @@ public class ProductFullView extends AppCompatActivity {
                         int pCount = 0;
                         int iCount = 0;
                         while (line != null) {
-                            Log.i("Line not Null", "True");
                             switch (pCount) {
                                 case 0:
                                     pImg = Integer.parseInt(line);
-                                    Log.i("pImg", Integer.toString(pImg));
                                     break;
                                 case 1:
                                     pTitle = line;
-                                    Log.i("pTitle", pTitle);
                                     break;
                                 case 2:
                                     pSrtDesc = line;
-                                    Log.i("pSrtDesc", pSrtDesc);
                                     break;
                                 case 3:
                                     pProductNum = line;
-                                    Log.i("pProductNum", pProductNum);
                                     break;
                                 case 4:
                                     pCategory = line;
-                                    Log.i("pCategory", pCategory);
                             }
-                            Log.i("pCount", Integer.toString(pCount));
-                            Log.i("iCount", Integer.toString(iCount));
                             if (pCount == 4) {
                                 wishItems[iCount] = new Product(pImg, pTitle, pSrtDesc,
                                         pProductNum, pCategory);
-                                Log.i("ProNum", Integer.toString(iCount));
-                                Log.i("Image", Integer.toString(wishItems[iCount].image));
-                                Log.i("Title", wishItems[iCount].title);
-                                Log.i("ShortDesc", wishItems[iCount].shortDesc);
-                                Log.i("Category", wishItems[iCount].category);
                                 iCount = iCount + 1;
                                 pCount = 0;
                             } else {

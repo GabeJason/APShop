@@ -153,23 +153,18 @@ public class MainShopActivity extends AppCompatActivity {
                         switch (p){
                             case 0:
                                 writeOut = Integer.toString(product_data[i].image) + "\n";
-                                Log.i("WriteOut", writeOut);
                                 break;
                             case 1:
                                 writeOut = product_data[i].title + "\n";
-                                Log.i("WriteOut", writeOut);
                                 break;
                             case 2:
                                 writeOut = product_data[i].shortDesc + "\n";
-                                Log.i("WriteOut", writeOut);
                                 break;
                             case 3:
                                 writeOut = product_data[i].productSystNum + "\n";
-                                Log.i("WriteOut", writeOut);
                                 break;
                             case 4:
                                 writeOut = product_data[i].category + "\n";
-                                Log.i("WriteOut", writeOut);
                                 break;
                         }
 
@@ -182,7 +177,6 @@ public class MainShopActivity extends AppCompatActivity {
                 }
                 lineCount = lineCount / 5;
                 outputStream.close();
-                Log.i("LineCount", Integer.toString(lineCount));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -209,11 +203,8 @@ public class MainShopActivity extends AppCompatActivity {
                         }
                         lines = lines / 5;
 
-                        Log.i("Lines", Integer.toString(lines));
                     } else {
-                        Log.i("Running", "Yes");
                         product_data = new Product[lines];
-                        Log.i("Num of Items",Integer.toString(product_data.length));
                         inputStream = new FileInputStream(dataFile);
                         reader = new BufferedReader(new InputStreamReader(inputStream));
                         String line = reader.readLine();
@@ -225,38 +216,25 @@ public class MainShopActivity extends AppCompatActivity {
                         int pCount = 0;
                         int iCount = 0;
                         while (line != null) {
-                            Log.i("Line not Null", "True");
                             switch (pCount) {
                                 case 0:
                                     pImg = Integer.parseInt(line);
-                                    Log.i("pImg",Integer.toString(pImg));
                                     break;
                                 case 1:
                                     pTitle = line;
-                                    Log.i("pTitle",pTitle);
                                     break;
                                 case 2:
                                     pSrtDesc = line;
-                                    Log.i("pSrtDesc",pSrtDesc);
                                     break;
                                 case 3:
                                     pProductNum = line;
-                                    Log.i("pProductNum", pProductNum);
                                     break;
                                 case 4:
                                     pCategory = line;
-                                    Log.i("pCategory", pCategory);
                             }
-                            Log.i("pCount",Integer.toString(pCount));
-                            Log.i("iCount",Integer.toString(iCount));
                             if (pCount == 4) {
                                 product_data[iCount] = new Product(pImg, pTitle, pSrtDesc,
                                         pProductNum, pCategory);
-                                Log.i("ProNum", Integer.toString(iCount));
-                                Log.i("Image", Integer.toString(product_data[iCount].image));
-                                Log.i("Title", product_data[iCount].title);
-                                Log.i("ShortDesc", product_data[iCount].shortDesc);
-                                Log.i("Category", product_data[iCount].category);
                                 iCount = iCount + 1;
                                 pCount = 0;
 
@@ -329,7 +307,6 @@ public class MainShopActivity extends AppCompatActivity {
                     }
 
                     startActivity(intent);
-                    Log.i("ID OnClick", Long.toString(id));
                 }
 
             }
@@ -391,7 +368,6 @@ public class MainShopActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
                         searchBtn.setTextColor(Color.parseColor("#0b253e"));
                         String searchTxt = String.valueOf(searchText.getText());
-                        Log.i("Search Text", searchTxt);
                         noSearchResults.setVisibility(View.GONE);
                         productListV.setVisibility(View.VISIBLE);
 
@@ -400,7 +376,6 @@ public class MainShopActivity extends AppCompatActivity {
                             checkProd = new int[product_data.length];
 
                             for (int i = 0; i < product_data.length; i++) {
-                                Log.i("Product Num", Integer.toString(i));
                                 compString(product_data[i].title.toUpperCase(), searchTxt.toUpperCase(), i);
 
                             }
@@ -449,9 +424,7 @@ public class MainShopActivity extends AppCompatActivity {
 
                 if(penCK.isChecked()){
                     drinkwareCK.setChecked(false);
-                    Log.i("Pen Checked", "No");
                 }else{
-                    Log.i("Pen Checked", "Yes");
                 }
             }
         });
@@ -462,9 +435,7 @@ public class MainShopActivity extends AppCompatActivity {
 
                 if(drinkwareCK.isChecked()){
                     penCK.setChecked(false);
-                    Log.i("Pen Checked", "No");
                 }else{
-                    Log.i("Pen Checked", "Yes");
                 }
             }
         });
@@ -525,11 +496,8 @@ public class MainShopActivity extends AppCompatActivity {
                                             }
                                             lines = lines / 5;
 
-                                            Log.i("Lines", Integer.toString(lines));
                                         } else {
-                                            Log.i("Running", "Yes");
                                             wishProduct = new Product[lines];
-                                            Log.i("Num of Items",Integer.toString(wishProduct.length));
                                             inputStream = new FileInputStream(wishFile);
                                             reader = new BufferedReader(new InputStreamReader(inputStream));
                                             String line = reader.readLine();
@@ -542,38 +510,25 @@ public class MainShopActivity extends AppCompatActivity {
                                             int iCount = 0;
                                             prodSearchCount = 0;
                                             while (line != null) {
-                                                Log.i("Line not Null", "True");
                                                 switch (pCount) {
                                                     case 0:
                                                         pImg = Integer.parseInt(line);
-                                                        Log.i("pImg",Integer.toString(pImg));
                                                         break;
                                                     case 1:
                                                         pTitle = line;
-                                                        Log.i("pTitle",pTitle);
                                                         break;
                                                     case 2:
                                                         pSrtDesc = line;
-                                                        Log.i("pSrtDesc",pSrtDesc);
                                                         break;
                                                     case 3:
                                                         pProductNum = line;
-                                                        Log.i("pProductNum", pProductNum);
                                                         break;
                                                     case 4:
                                                         pCategory = line;
-                                                        Log.i("pCategory", pCategory);
                                                 }
-                                                Log.i("pCount",Integer.toString(pCount));
-                                                Log.i("iCount",Integer.toString(iCount));
                                                 if (pCount == 4) {
                                                     wishProduct[iCount] = new Product(pImg, pTitle, pSrtDesc,
                                                             pProductNum, pCategory);
-                                                    Log.i("ProNum", Integer.toString(iCount));
-                                                    Log.i("Image", Integer.toString(wishProduct[iCount].image));
-                                                    Log.i("Title", wishProduct[iCount].title);
-                                                    Log.i("ShortDesc", wishProduct[iCount].shortDesc);
-                                                    Log.i("Category", wishProduct[iCount].category);
                                                     iCount = iCount + 1;
                                                     pCount = 0;
                                                     prodSearchCount = prodSearchCount + 1;
@@ -828,27 +783,21 @@ public class MainShopActivity extends AppCompatActivity {
 
         for (int i = 0; i < one.length(); i++){
             if (one.charAt(i) == two.charAt(0)){
-                Log.i("Letter Compare", "true");
                 if(two.length() == 1){
                     check = true;
-                    Log.i("Check", "true");
                     i = one.length();
                 }else {
                     for (int p = 1; p < two.length(); p++) {
-                        Log.i("Next Letter Compare", "true");
                         if (i + p < one.length()) {
                             if (one.charAt(i + p) != two.charAt(p)) {
                                 check = false;
-                                Log.i("Check", "false");
                                 p = two.length();
                             } else if (p == two.length() - 1) {
                                 check = true;
-                                Log.i("Check", "true");
                                 i = one.length();
                             }
                         } else {
                             check = true;
-                            Log.i("Check", "true");
                             i = one.length();
                         }
                     }
@@ -859,10 +808,8 @@ public class MainShopActivity extends AppCompatActivity {
         if(check){
             checkProd[w] = 1;
             prodSearchCount = prodSearchCount + 1;
-            Log.i("CheckProd", "1");
         }else{
             checkProd[w] = 0;
-            Log.i("CheckProd", "0");
         }
 
     }
@@ -883,7 +830,6 @@ public class MainShopActivity extends AppCompatActivity {
                 inputStream = new FileInputStream(verFile);
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 verCode = Integer.parseInt(reader.readLine());
-                Log.i("VerCode", Integer.toString(verCode));
                 inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
