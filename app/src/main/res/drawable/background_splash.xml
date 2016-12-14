@@ -6,7 +6,7 @@
     <item>
         <bitmap
             android:scaleGravity="fill_horizontal|fill_vertical"
-            android:src="@drawable/aplogo"/>
+            android:src="@drawable/splashlogo25"/>
     </item>
 
 </layer-list>
