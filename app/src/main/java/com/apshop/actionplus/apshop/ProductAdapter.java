@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Cameron on 10/11/2016.
+ * Created by Gabriel Jason on 10/11/2016.
  */
 
 public class ProductAdapter extends ArrayAdapter<Product> {

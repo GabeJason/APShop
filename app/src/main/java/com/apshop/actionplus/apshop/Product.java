@@ -1,7 +1,7 @@
 package com.apshop.actionplus.apshop;
 
 /**
- * Created by Cameron on 10/10/2016.
+ * Created by Gabriel Jason on 10/10/2016.
  */
 
 public class Product {
