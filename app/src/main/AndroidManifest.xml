@@ -35,7 +35,8 @@
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity
             android:name=".InfoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".VirtualProof"></activity>
     </application>
 
 </manifest>

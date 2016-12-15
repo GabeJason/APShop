@@ -24,6 +24,7 @@ public class ProductFullView extends AppCompatActivity {
     int ProductNum = 0;
     ImageButton exitBtn;
     ImageButton wishBtn, vrmodeBtn;
+    Button vpBtn;
     int pImg;
     String pTitle;
     String pSrtDesc;
@@ -43,6 +44,7 @@ public class ProductFullView extends AppCompatActivity {
         wishBtn = (ImageButton) findViewById(R.id.wishPFVBTN);
         wishBtn.setTag("1");
         vrmodeBtn = (ImageButton) findViewById(R.id.vrmodePFVBTN);
+        vpBtn = (Button)findViewById(R.id.virtualProofPFVBTN);
 
         ImageView productImg = (ImageView) findViewById(R.id.imagePFV);
         TextView productTitle = (TextView) findViewById(R.id.titlePFVTV);
@@ -312,6 +314,14 @@ public class ProductFullView extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            }
+        });
+
+        vpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent vpIntent = new Intent(getApplicationContext(), VirtualProof.class);
+                startActivity(vpIntent);
             }
         });
     }
