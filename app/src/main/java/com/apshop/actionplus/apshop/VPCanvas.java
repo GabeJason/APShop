@@ -22,11 +22,13 @@ public class VPCanvas extends View {
     float viewWidth;
     float viewHeight;
     Bitmap.Config config = Bitmap.Config.ARGB_8888;
+    int[][] permitSq = new int[180][200]; //left corner is x 200   y 140
 
     RelativeLayout mainLay;
 
     public VPCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
+
 
         mainLay = (RelativeLayout) findViewById(R.id.activity_virtual_proof);
 
@@ -35,53 +37,57 @@ public class VPCanvas extends View {
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.viking20tumbler, opts );
         int[] pixels1 = new int[bm.getWidth() * bm.getHeight()];
         bm.getPixels(pixels1, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
-        /*for (int i = 0; i < pixels1.length; i++){
-            if (pixels1[i] == Color.WHITE) {
-                pixels1[i] = Color.TRANSPARENT;
-            }else {
-                for (int p = 251; p < 256; p++) {
-                    for (int q = 251; q < 256; q++) {
-                        for (int r = 251; r < 256; r++) {
-                            if (pixels1[i] == Color.rgb(p, q, r)) {
-                                pixels1[i] = Color.TRANSPARENT;
-                            }
-                        }
-                    }
-                }
-            }
 
-        }*/
         Log.i ("BM Width", Integer.toString(bm.getWidth()));
         Log.i("Mutable", Boolean.toString(bm.isMutable()));
         //bm.setPixels(pixels1, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
         Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.drawable.actionpluslogo25, opts);
         int[] pixels2 = new int[b2.getWidth() * b2.getHeight()];
         b2.getPixels(pixels2, 0, b2.getWidth(), 0, 0, b2.getWidth(), b2.getHeight());
-        float pixlen = pixels2.length;
-        int scale2 = (int)Math.round(pixlen * .25);
-        int[] pixels2Scale = new int[scale2];
-        Log.i("pix2scale",Integer.toString((int)Math.round(pixlen * .25)));
-        int countdown = 0;
-        for (int i = 0; i < pixels2.length; i++){
-            if (i % 4 == 3){
-                pixels2Scale[i + countdown] = pixels2[i];
-            }else{
-                countdown = countdown -1;
+        Log.i ("B2 Width", Integer.toString(b2.getWidth()));
+        int b2width = (int) Math.round(b2.getWidth() * .1666);
+        Log.i ("B2 Width", Integer.toString(b2width));
+        Log.i ("B2 Height", Integer.toString(b2.getHeight()));
+        int b2height = (int) Math.round(b2.getHeight() * .1666);
+        Log.i ("B2 Height", Integer.toString(b2height));
+        //float pixlen = pixels2.length;
+        //int scale2 = (int)Math.round(pixlen * .25);
+        int[][] pixels2M = new int[650][1200];
+
+        int mcount = 0;
+        for (int i = 0; i < b2.getHeight(); i++){
+            for (int p = 0; p < b2.getWidth(); p++){
+                pixels2M[i][p] = pixels2[mcount];
+                mcount++;
             }
         }
+
+
+        int[] pixels2Scale = new int[b2width * b2height];
+
+        mcount = 0;
+        for (int i = 0; i < b2.getHeight(); i = i + 6){
+            for (int p = 0; p < b2.getWidth(); p = p + 6){
+                if (mcount < pixels2Scale.length) {
+                    pixels2Scale[mcount] = pixels2M[i][p];
+                    mcount++;
+                }
+            }
+        }
+
         Log.i ("Testing","Testing");
         pixels2 = pixels2Scale;
         boolean changed = false;
         for (int i = 0; i < pixels2.length; i++){
-            if (pixels2[i] == Color.WHITE) {
-                pixels2[i] = Color.TRANSPARENT;
+            if (pixels2Scale[i] == Color.WHITE) {
+                pixels2Scale[i] = Color.TRANSPARENT;
                 changed = true;
             }else {
                 for (int p = 251; p < 256; p++) {
                     for (int q = 251; q < 256; q++) {
                         for (int r = 251; r < 256; r++) {
-                            if (pixels2[i] == Color.rgb(p, q, r)) {
-                                pixels2[i] = Color.TRANSPARENT;
+                            if (pixels2Scale[i] == Color.rgb(p, q, r)) {
+                                pixels2Scale[i] = Color.TRANSPARENT;
                                 changed = true;
                             }
                         }
@@ -90,15 +96,15 @@ public class VPCanvas extends View {
 
             }
             if(!changed) {
-                pixels2[i] = Color.BLUE;
+                pixels2Scale[i] = Color.BLACK;
             }
             changed = false;
 
         }
-        int b2width = (int) Math.round(b2.getWidth() * .25);
-        int b2height = (int) Math.round(b2.getHeight() * .25);
-        Bitmap b2Temp = Bitmap.createBitmap(pixels2, b2width, b2height, config);
+
+        Bitmap b2Temp = Bitmap.createBitmap(pixels2Scale, b2width, b2height, config);
         b2 = b2Temp;
+        Log.i ("B2 Width", Integer.toString(b2.getWidth()));
         //b2.setPixels(pixels2, 0, b2.getWidth(), 0, 0, b2.getWidth(), b2.getHeight());
 
 
@@ -127,25 +133,7 @@ public class VPCanvas extends View {
         }
         int n = 0;
         int q =0;
-        /*int p = 0;
-        int prevw = 0;
-        boolean heightR = false;
-        for (int i = 0; i < height; i++){
-            for (int w = 0; w < width; w++){
 
-                if (w < bm.getWidth() && !heightR){
-                    pixels[w + prevw] = pixels1[p];
-                    p++;
-                }else{
-                    pixels[w + prevw] = Color.YELLOW;
-                }
-
-            }
-            prevw = prevw + width;
-            if (i == bm.getHeight()){
-                heightR = true;
-            }
-        }*/
         int count = 0;
         Log.i ("Spacing", Integer.toString(spacing));
         for (int i = 0; i < pixels.length; i++){
@@ -163,9 +151,9 @@ public class VPCanvas extends View {
                         }
                     }else if (i > bm.getWidth() && count > (bm.getWidth() - 1) && spacing > 0) {
                         count = 0;
-                        Log.i("I", Integer.toString(i));
+                        //Log.i("I", Integer.toString(i));
                         q = i + spacing;
-                        Log.i("Spacing", Integer.toString(q));
+                       // Log.i("Spacing", Integer.toString(q));
                     /*for (i = i + 1; i < q; i++) {
                         pixels[i] = Color.WHITE;
                     }*/
@@ -186,16 +174,20 @@ public class VPCanvas extends View {
         if ((bm.getWidth() - b2.getWidth()) > 0){
             spacing = (bm.getWidth() - b2.getWidth());
         }
-        n = 0;
+        n = 83600;
         count = 0;
-        for (int i = 0; i < pixels2.length; i++){
-            if (i < pixels2.length) {
-                if (pixels2[i] == Color.BLUE) {
-                    pixels[n] = Color.BLUE;
+        int c =0;
+        Log.i("2 Length", Integer.toString(pixels2Scale.length));
+        for (int i = 0; i < pixels2Scale.length; i++){
+            if (i < pixels2Scale.length) {
+                if (pixels2Scale[i] == Color.BLACK) {
+                    pixels[n] = Color.BLACK;
                 }
-                if (count > (b2.getWidth() -1)) {
+                if (count > (b2.getWidth() - 1 )) {
                     n = n + spacing;
                     count = 0;
+                    c = c +1;
+                    //Log.i ("Line", Integer.toString(c));
                 }
                 n++;
                 count++;
@@ -224,7 +216,7 @@ public class VPCanvas extends View {
             q =0;
             count = 0;
             spacing = width - returncalc;
-            Log.i ("Spacing", Integer.toString(spacing));
+            //Log.i ("Spacing", Integer.toString(spacing));
             for (int i = 0; i < pixelsScaled.length; i++){
                 if(n < pixels.length) {
                     pixelsScaled[i] = pixels[n];
@@ -235,23 +227,23 @@ public class VPCanvas extends View {
                             q = i + spacing;
                             count = 0;
                             while (i < q) {
-                                pixels[i] = Color.YELLOW;
+                                pixelsScaled[i] = Color.YELLOW;
                                 i = i + 1;
                             }
                         }else if (i > returncalc && count > (returncalc - 1)) {
                             count = 0;
-                            Log.i("I", Integer.toString(i));
+                           // Log.i("I", Integer.toString(i));
                             q = i + spacing;
-                            Log.i("Spacing", Integer.toString(q));
+                           // Log.i("Spacing", Integer.toString(q));
                             i = i + 1;
                             while (i < q && i < pixelsScaled.length) {
-                                pixels[i] = Color.YELLOW;
+                                pixelsScaled[i] = Color.YELLOW;
                                 i = i + 1;
                             }
                         }
                     }
                 }else if (i < pixelsScaled.length){
-                    pixels[i] = Color.YELLOW;
+                    pixelsScaled[i] = Color.YELLOW;
                 }
 
             }
@@ -318,6 +310,7 @@ public class VPCanvas extends View {
         return 0;
 
     }
+
 
 
 }
