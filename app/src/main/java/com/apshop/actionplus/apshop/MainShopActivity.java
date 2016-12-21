@@ -48,6 +48,7 @@ public class MainShopActivity extends AppCompatActivity {
     ProductAdapter adapter;
     TextView noSearchResults, categoryTxt;
     CheckBox drinkwareCK, penCK;
+    boolean checkifupated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,13 +119,13 @@ public class MainShopActivity extends AppCompatActivity {
             product_data = new Product[]
 
                     {
-                            new Product(R.drawable.viking20tumbler, "20 Oz. Viking Tumbler (FILLER)", "20 Oz. double wall vacuum stainless steel bottom. Press-in lid. Keeps liquid hot for 5 1/2 hours. Keeps liquid cold for 24 hours. Silver, Black, Maroon Red, Navy Blue.", "YIDJI-KWXUS", "Drinkware"),
-                            new Product(R.drawable.hugocopper30tumbler, "Mega Hugo Copper Vacuum Insulated Tumbler 30 Oz. (FILLER)", "Do not miss the most trendy tumbler of the year. Durable, double-wall stainless steel vacuum construction with copper insulation, which allows your cold beverage to stay cold for 24 hours and at least 6 hours for hot beverages. The construction also prevents condensation on the outside of the tumbler. Easy sipping, push-on lid. Wide opening for comfortable filling and pouring. Design features the spinning, geometric bottom. 30oz. 8.86\" H x 3.86\" Diameter. Silver, Black", "QIHJB-KWYJV", "Drinkware"),
-                            new Product(R.drawable.impacttumbler26, "Impact 26 oz H2O to Go Tumbler", "26 oz double wall 18/8 stainless steel thermal bottle with copper vacuum insulation and threaded stainless steel lid. Hot 12 hours/Cold 24 hours. Gloss white, neon pink, neon orange, neon yellow, neon green, neon blue, matte gray, matte black.", "SKDBH-JUYCR", "Drinkware"),
-                            new Product(R.drawable.himylayiantumbler20, "Everest 20 oz Tumbler", "Stainless Steel Outer And Inner. Double Wall Construction For Insulation Of Hot Or Cold Liquids. Spill-Resistant Slide Action Lid With Rubber Gasket. Due To Vacuum Insulation Technology, Capacity Is 18 Oz. With Lid On. Meets FDA Requirements. BPA Free. Hand Wash Recommended. Keeps Drinks Hot Or Cold Up To 6 Hours. Silver or White, both with Clear Lid. Matte: Black with Charcoal Lid. Metallic: Blue or Red with Charcoal Lid. Metallic: Fuchsia, Green, Orange, Purple or Teal, all with Clear Lid.", "GKHCE-KWVNS", "Drinkware"),
-                            new Product(R.drawable.continental30tumbler, "Continental 30 oz Tumbler", "30 ounces. Double wall stainless steel. Copper vacuum insulation. Push on, sip through lid. Perfect for hot and cold. Silver, Matte Black.", "NCGEB-KXHER", "Drinkware"),
-                            new Product(R.drawable.airtextstyluspen, "Airtext Stylus Pen", "Designed for advanced connectivity with all touchscreen devices, this promotional stylus pen hits all the right buttons! Shimmering jewel tones are set off by striking silver tone accents while the elegant diamond etched grip provides writing comfort. Each ballpoint pen contains a smooth-writing  ink cartridge. Silver engraved with your logo or personalized message, this pen is a perfect gift for valued clients, customers, and executives. For your convenience, each pen is individually cellophane wrapped.", "AJGHE-JKTRE", "Pen"),
-                            new Product(R.drawable.palmbeachumbrella, "Palm Beach 60\" Steel Golf Umbrella (FILLER)", "Solid colors: 190T polyester, two tone colors: half polyester/half nylon. Full size vented golf umbrella. 60\" arc. Manual opening. Large polyester canopy. Sturdy metal shaft with wooden handle. 39\" L. Black, Khaki Beige, Navy Blue, Navy Blue/Khaki Beige, Red, Royal Blue, White/Black, White/Royal Blue.", "CDFBJ-JJKCT","Umbrella")
+                            new Product(R.drawable.viking20tumbler, "20 Oz. Viking Tumbler (FILLER)", "20 Oz. double wall vacuum stainless steel bottom. Press-in lid. Keeps liquid hot for 5 1/2 hours. Keeps liquid cold for 24 hours. Silver, Black, Maroon Red, Navy Blue.", "YIDJI-KWXUS", "Drinkware", false, false),
+                            new Product(R.drawable.hugocopper30tumbler, "Mega Hugo Copper Vacuum Insulated Tumbler 30 Oz. (FILLER)", "Do not miss the most trendy tumbler of the year. Durable, double-wall stainless steel vacuum construction with copper insulation, which allows your cold beverage to stay cold for 24 hours and at least 6 hours for hot beverages. The construction also prevents condensation on the outside of the tumbler. Easy sipping, push-on lid. Wide opening for comfortable filling and pouring. Design features the spinning, geometric bottom. 30oz. 8.86\" H x 3.86\" Diameter. Silver, Black", "QIHJB-KWYJV", "Drinkware", false, false),
+                            new Product(R.drawable.impacttumbler26, "Impact 26 oz H2O to Go Tumbler", "26 oz double wall 18/8 stainless steel thermal bottle with copper vacuum insulation and threaded stainless steel lid. Hot 12 hours/Cold 24 hours. Gloss white, neon pink, neon orange, neon yellow, neon green, neon blue, matte gray, matte black.", "SKDBH-JUYCR", "Drinkware", true, true),
+                            new Product(R.drawable.himylayiantumbler20, "Everest 20 oz Tumbler", "Stainless Steel Outer And Inner. Double Wall Construction For Insulation Of Hot Or Cold Liquids. Spill-Resistant Slide Action Lid With Rubber Gasket. Due To Vacuum Insulation Technology, Capacity Is 18 Oz. With Lid On. Meets FDA Requirements. BPA Free. Hand Wash Recommended. Keeps Drinks Hot Or Cold Up To 6 Hours. Silver or White, both with Clear Lid. Matte: Black with Charcoal Lid. Metallic: Blue or Red with Charcoal Lid. Metallic: Fuchsia, Green, Orange, Purple or Teal, all with Clear Lid.", "GKHCE-KWVNS", "Drinkware", true, true),
+                            new Product(R.drawable.continental30tumbler, "Continental 30 oz Tumbler", "30 ounces. Double wall stainless steel. Copper vacuum insulation. Push on, sip through lid. Perfect for hot and cold. Silver, Matte Black.", "NCGEB-KXHER", "Drinkware", true, true),
+                            new Product(R.drawable.airtextstyluspen, "Airtext Stylus Pen", "Designed for advanced connectivity with all touchscreen devices, this promotional stylus pen hits all the right buttons! Shimmering jewel tones are set off by striking silver tone accents while the elegant diamond etched grip provides writing comfort. Each ballpoint pen contains a smooth-writing  ink cartridge. Silver engraved with your logo or personalized message, this pen is a perfect gift for valued clients, customers, and executives. For your convenience, each pen is individually cellophane wrapped.", "AJGHE-JKTRE", "Pen", true, true),
+                            new Product(R.drawable.palmbeachumbrella, "Palm Beach 60\" Steel Golf Umbrella (FILLER)", "Solid colors: 190T polyester, two tone colors: half polyester/half nylon. Full size vented golf umbrella. 60\" arc. Manual opening. Large polyester canopy. Sturdy metal shaft with wooden handle. 39\" L. Black, Khaki Beige, Navy Blue, Navy Blue/Khaki Beige, Red, Royal Blue, White/Black, White/Royal Blue.", "CDFBJ-JJKCT","Umbrella", false, false)
                     };
 
             try {
@@ -148,7 +149,7 @@ public class MainShopActivity extends AppCompatActivity {
 
                 for (int i = 0; i < product_data.length; i++) {
 
-                    for (int p = 0; p < 5; p++) {
+                    for (int p = 0; p < 7; p++) {
 
                         switch (p){
                             case 0:
@@ -166,6 +167,12 @@ public class MainShopActivity extends AppCompatActivity {
                             case 4:
                                 writeOut = product_data[i].category + "\n";
                                 break;
+                            case 5:
+                                writeOut = Boolean.toString(product_data[i].vrmode) + "\n";
+                                break;
+                            case 6:
+                                writeOut = Boolean.toString(product_data[i].vrproof) + "\n";
+                                break;
                         }
 
                         lineCount = lineCount + 1;
@@ -175,7 +182,7 @@ public class MainShopActivity extends AppCompatActivity {
 
                     }
                 }
-                lineCount = lineCount / 5;
+                lineCount = lineCount / 7;
                 outputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -201,7 +208,7 @@ public class MainShopActivity extends AppCompatActivity {
                             lines = lines + 1;
                             line = reader.readLine();
                         }
-                        lines = lines / 5;
+                        lines = lines / 7;
 
                     } else {
                         product_data = new Product[lines];
@@ -213,6 +220,8 @@ public class MainShopActivity extends AppCompatActivity {
                         String pSrtDesc = "";
                         String pProductNum = "";
                         String pCategory = "";
+                        boolean pVrmode = false;
+                        boolean pVrproof = false;
                         int pCount = 0;
                         int iCount = 0;
                         while (line != null) {
@@ -231,10 +240,17 @@ public class MainShopActivity extends AppCompatActivity {
                                     break;
                                 case 4:
                                     pCategory = line;
+                                    break;
+                                case 5:
+                                    pVrmode = Boolean.parseBoolean(line);
+                                    break;
+                                case 6:
+                                    pVrproof = Boolean.parseBoolean(line);
+                                    break;
                             }
-                            if (pCount == 4) {
+                            if (pCount == 6) {
                                 product_data[iCount] = new Product(pImg, pTitle, pSrtDesc,
-                                        pProductNum, pCategory);
+                                        pProductNum, pCategory, pVrmode, pVrproof);
                                 iCount = iCount + 1;
                                 pCount = 0;
 
@@ -468,8 +484,9 @@ public class MainShopActivity extends AppCompatActivity {
                             File wishFile = new File(getApplicationContext().getFilesDir().getPath(), filename);
                             Log.i("FilePath",wishFile.getAbsolutePath());
 
-                            if(checkIsUpdated()){
+                            if(checkifupated){
                                 wishFile.delete();
+                                checkifupated = false;
                             }
 
                             if (!wishFile.exists()){
@@ -494,7 +511,7 @@ public class MainShopActivity extends AppCompatActivity {
                                                 lines = lines + 1;
                                                 line = reader.readLine();
                                             }
-                                            lines = lines / 5;
+                                            lines = lines / 7;
 
                                         } else {
                                             wishProduct = new Product[lines];
@@ -506,6 +523,8 @@ public class MainShopActivity extends AppCompatActivity {
                                             String pSrtDesc = "";
                                             String pProductNum = "";
                                             String pCategory = "";
+                                            boolean pVrmode = false;
+                                            boolean pVrproof = false;
                                             int pCount = 0;
                                             int iCount = 0;
                                             prodSearchCount = 0;
@@ -525,10 +544,17 @@ public class MainShopActivity extends AppCompatActivity {
                                                         break;
                                                     case 4:
                                                         pCategory = line;
+                                                        break;
+                                                    case 5:
+                                                        pVrmode = Boolean.parseBoolean(line);
+                                                        break;
+                                                    case 6:
+                                                        pVrproof = Boolean.parseBoolean(line);
+                                                        break;
                                                 }
-                                                if (pCount == 4) {
+                                                if (pCount == 6) {
                                                     wishProduct[iCount] = new Product(pImg, pTitle, pSrtDesc,
-                                                            pProductNum, pCategory);
+                                                            pProductNum, pCategory, pVrmode, pVrproof);
                                                     iCount = iCount + 1;
                                                     pCount = 0;
                                                     prodSearchCount = prodSearchCount + 1;
@@ -847,6 +873,7 @@ public class MainShopActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                checkifupated = true;
                 return true;
             }else{
                 return false;

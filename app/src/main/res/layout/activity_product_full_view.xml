@@ -35,13 +35,7 @@
             android:paddingBottom="10dp"
             android:id="@+id/itemNameABTV"/>-->
 
-        <ImageButton
-            android:layout_height="40dp"
-            android:layout_width="wrap_content"
-            android:background="@drawable/googlecardboard"
-            android:layout_margin="10dp"
-            android:id="@+id/vrmodePFVBTN"
-            android:layout_alignParentRight="true"/>
+
 
         <ImageButton
             android:layout_height="40dp"
@@ -49,7 +43,18 @@
             android:background="@drawable/addwishlist"
             android:layout_margin="10dp"
             android:id="@+id/wishPFVBTN"
-            android:layout_toLeftOf="@id/vrmodePFVBTN"/>
+            android:layout_alignParentRight="true"
+            />
+
+        <ImageButton
+            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:background="@drawable/googlecardboard"
+            android:layout_margin="10dp"
+            android:id="@+id/vrmodePFVBTN"
+            android:layout_toLeftOf="@id/wishPFVBTN"
+            android:visibility="gone"
+            />
 
         <Button
             android:layout_height="40dp"
@@ -57,7 +62,8 @@
             android:text="Virtual Proof"
             android:layout_margin="10dp"
             android:id="@+id/virtualProofPFVBTN"
-            android:layout_toLeftOf="@id/wishPFVBTN"/>
+            android:layout_toLeftOf="@id/vrmodePFVBTN"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>

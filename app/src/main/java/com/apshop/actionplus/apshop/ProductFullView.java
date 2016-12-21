@@ -1,6 +1,7 @@
 package com.apshop.actionplus.apshop;
 
 import android.content.Intent;
+import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,8 @@ public class ProductFullView extends AppCompatActivity {
     String pCategory;
     Product wishItems[];
     int itemIndex = 0;
+    boolean pVrmode = false;
+    boolean pVrproof = false;
 
 
     @Override
@@ -72,7 +75,7 @@ public class ProductFullView extends AppCompatActivity {
                         lines = lines + 1;
                         line = reader.readLine();
                     }
-                    lines = lines / 5;
+                    lines = lines / 7 ;
 
                 } else {
                     inputStream = new FileInputStream(dataFile);
@@ -104,9 +107,15 @@ public class ProductFullView extends AppCompatActivity {
                                 case 4:
                                     pCategory = line;
                                     break;
+                                case 5:
+                                    pVrmode = Boolean.parseBoolean(line);
+                                    break;
+                                case 6:
+                                    pVrproof = Boolean.parseBoolean(line);
+                                    break;
                             }
                         }
-                        if (pCount == 4) {
+                        if (pCount == 6) {
                             iCount = iCount + 1;
                             pCount = 0;
 
@@ -127,6 +136,12 @@ public class ProductFullView extends AppCompatActivity {
                     productDesc.setText(pSrtDesc);
                     prodNumTV.setText(sysProdNum);
                     prodCatTV.setText(pCategory);
+                    if (pVrmode){
+                        vrmodeBtn.setVisibility(View.VISIBLE);
+                    }
+                    if (pVrproof){
+                        vpBtn.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -216,7 +231,7 @@ public class ProductFullView extends AppCompatActivity {
                     String writeOut = "";
                     try {
                         outputStream = new FileOutputStream(wishFile, true);
-                        for (int p = 0; p < 5; p++) {
+                        for (int p = 0; p < 7; p++) {
                             switch (p) {
                                 case 0:
                                     writeOut = Integer.toString(pImg) + "\n";
@@ -233,6 +248,12 @@ public class ProductFullView extends AppCompatActivity {
                                 case 4:
                                     writeOut = pCategory + "\n";
                                     break;
+                                case 5:
+                                    writeOut = Boolean.toString(pVrmode) + "\n";
+                                    break;
+                                case 6:
+                                    writeOut = Boolean.toString(pVrproof) + "\n";
+                                    break;
                             }
                             outputStream.write(writeOut.getBytes());
                         }
@@ -245,7 +266,7 @@ public class ProductFullView extends AppCompatActivity {
                         }
 
                         tempList[newIndex] = new Product(pImg, pTitle, pSrtDesc,
-                                sysProdNum, pCategory);
+                                sysProdNum, pCategory, pVrmode, pVrproof);
 
                         wishItems = tempList;
 
@@ -286,7 +307,7 @@ public class ProductFullView extends AppCompatActivity {
                     try {
                         outputStream = new FileOutputStream(wishFile);
                         for (int i = 0; i < wishItems.length; i++) {
-                            for (int p = 0; p < 5; p++) {
+                            for (int p = 0; p < 7; p++) {
                                 switch (p){
                                     case 0:
                                         writeOut = Integer.toString(wishItems[i].image) + "\n";
@@ -303,12 +324,18 @@ public class ProductFullView extends AppCompatActivity {
                                     case 4:
                                         writeOut = wishItems[i].category + "\n";
                                         break;
+                                    case 5:
+                                        writeOut = Boolean.toString(wishItems[i].vrmode) + "\n";
+                                        break;
+                                    case 6:
+                                        writeOut = Boolean.toString(wishItems[i].vrproof) + "\n";
+                                        break;
                                 }
                                 lineCount = lineCount + 1;
                                 outputStream.write(writeOut.getBytes());
                             }
                         }
-                        lineCount = lineCount / 5;
+                        lineCount = lineCount / 7;
                         outputStream.close();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -321,6 +348,7 @@ public class ProductFullView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent vpIntent = new Intent(getApplicationContext(), VirtualProof.class);
+                vpIntent.putExtra("Item",Integer.toString(ProductNum));
                 startActivity(vpIntent);
             }
         });
@@ -354,7 +382,7 @@ public class ProductFullView extends AppCompatActivity {
                             lines = lines + 1;
                             line = reader.readLine();
                         }
-                        lines = lines / 5;
+                        lines = lines / 7;
 
                     } else {
                         wishItems = new Product[lines];
@@ -384,10 +412,17 @@ public class ProductFullView extends AppCompatActivity {
                                     break;
                                 case 4:
                                     pCategory = line;
+                                    break;
+                                case 5:
+                                    pVrmode = Boolean.parseBoolean(line);
+                                    break;
+                                case 6:
+                                    pVrproof = Boolean.parseBoolean(line);
+                                    break;
                             }
-                            if (pCount == 4) {
+                            if (pCount == 6) {
                                 wishItems[iCount] = new Product(pImg, pTitle, pSrtDesc,
-                                        pProductNum, pCategory);
+                                        pProductNum, pCategory, pVrmode, pVrproof);
                                 iCount = iCount + 1;
                                 pCount = 0;
                             } else {

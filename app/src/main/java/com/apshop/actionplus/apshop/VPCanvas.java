@@ -23,16 +23,11 @@ public class VPCanvas extends View {
     float viewHeight;
     Bitmap.Config config = Bitmap.Config.ARGB_8888;
     int[][] permitSq = new int[180][200]; //left corner is x 200   y 140
-
-    RelativeLayout mainLay;
+    BitmapFactory.Options opts = new BitmapFactory.Options();
 
     public VPCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-
-        mainLay = (RelativeLayout) findViewById(R.id.activity_virtual_proof);
-
-        BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inMutable = true;
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.viking20tumbler, opts );
         int[] pixels1 = new int[bm.getWidth() * bm.getHeight()];
@@ -252,7 +247,7 @@ public class VPCanvas extends View {
         Bitmap combBit = Bitmap.createBitmap(pixelsScaled, width, height, config);
         BitmapDrawable bd = new BitmapDrawable(getContext().getResources(), combBit);
 
-        getRootView().setBackground(bd);
+        //getRootView().setBackground(bd);
     }
 
     public int calcRatio(){
