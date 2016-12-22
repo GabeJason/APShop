@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete Image White Space"
-                android:id="@+id/VPdelteWhite"/>
+                android:id="@+id/VPdeleteWhite"/>
         </LinearLayout>
 
         <LinearLayout
@@ -134,11 +134,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Request More Information"
-                android:id="@+id/VPreqMoreInfo"/>
+                android:id="@+id/VPreqMoreInfo"/>-->
 
             <Button
                 android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
     </LinearLayout>
 
     <com.apshop.actionplus.apshop.VPCanvas
-        android:layout_width="360dp"
+        android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"

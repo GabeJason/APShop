@@ -24,6 +24,17 @@ public class VPCanvas extends View {
     Bitmap.Config config = Bitmap.Config.ARGB_8888;
     int[][] permitSq = new int[180][200]; //left corner is x 200   y 140
     BitmapFactory.Options opts = new BitmapFactory.Options();
+    int[] logoBit;
+    int[] backBit;
+    boolean logoLoaded = false;
+    BitmapDrawable bd;
+    boolean loaded;
+    int logoWidth;
+    int logoHeight;
+
+    public VPCanvas(Context context){
+        super(context);
+    }
 
     public VPCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,6 +59,7 @@ public class VPCanvas extends View {
         //float pixlen = pixels2.length;
         //int scale2 = (int)Math.round(pixlen * .25);
         int[][] pixels2M = new int[650][1200];
+
 
         int mcount = 0;
         for (int i = 0; i < b2.getHeight(); i++){
@@ -306,6 +318,40 @@ public class VPCanvas extends View {
 
     }
 
+    public boolean setLogo(Bitmap map){
+        logoBit = new int[map.getWidth() * map.getHeight()];
+        map.getPixels(logoBit, 0, map.getWidth(), 0, 0, map.getWidth(), map.getHeight());
 
+        logoLoaded =true;
+        loaded = setView();
+        while (!loaded){}
+        loaded = false;
+        return true;
+    }
+
+    public boolean setBack(Bitmap map){
+        backBit = new int[map.getWidth() * map.getHeight()];
+        map.getPixels(backBit, 0, map.getWidth(), 0, 0, map.getWidth(), map.getHeight());
+        loaded = setView();
+        while (!loaded){}
+        loaded = false;
+        return true;
+    }
+
+    public boolean setView(){
+        if(logoLoaded){
+            Bitmap backImg = Bitmap.createBitmap(backBit, 1000, 1000, config);
+            bd = new BitmapDrawable(getContext().getResources(), backImg);
+            return true;
+        }else{
+            Bitmap backImg = Bitmap.createBitmap(backBit, 1000, 1000, config);
+            bd = new BitmapDrawable(getContext().getResources(), backImg);
+            return true;
+        }
+    }
+
+    public BitmapDrawable getBack(){
+        return bd;
+    }
 
 }

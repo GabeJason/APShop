@@ -66,7 +66,7 @@ public class Product {
             s[1] = "#006ab5";
             s[2] = "#857c7a";
             s[3] = "#3cac49";
-            s[4] = "#3cac49";
+            s[4] = "#c92026";
             return s;
         }else{
             String[] s = new String[1];
