@@ -31,9 +31,11 @@ public class VPCanvas extends View {
     boolean loaded;
     int logoWidth;
     int logoHeight;
+    int ProductNum;
 
-    public VPCanvas(Context context){
+    public VPCanvas(Context context, int product){
         super(context);
+        ProductNum = product;
     }
 
     public VPCanvas(Context context, AttributeSet attrs) {
@@ -322,6 +324,9 @@ public class VPCanvas extends View {
         logoBit = new int[map.getWidth() * map.getHeight()];
         map.getPixels(logoBit, 0, map.getWidth(), 0, 0, map.getWidth(), map.getHeight());
 
+        logoWidth = map.getWidth();
+        logoHeight = map.getHeight();
+
         logoLoaded =true;
         loaded = setView();
         while (!loaded){}
@@ -352,6 +357,38 @@ public class VPCanvas extends View {
 
     public BitmapDrawable getBack(){
         return bd;
+    }
+
+    public int[] logoPlacement(int product){
+
+        int[] place = new int[3];
+
+        if(product == 2){
+            place[0] = 240;
+            place[1] = 380;
+            place[2] = 484380;
+            return place;
+        }else if(product == 3){
+            place[0] = 400;
+            place[1] = 325;
+            place[2] = 214300;
+            return place;
+        }else if(product == 4){
+            place[0] = 400;
+            place[1] = 290;
+            place[2] = 162300;
+            return place;
+        }else if(product == 5){
+            place[0] = 380;
+            place[1] = 55;
+            place[2] = 486400;
+            return place;
+        }else{
+            place[0] = 0;
+            place[1] = 0;
+            place[2] = 0;
+            return place;
+        }
     }
 
 }

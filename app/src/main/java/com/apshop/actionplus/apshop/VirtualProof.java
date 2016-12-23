@@ -56,7 +56,7 @@ public class VirtualProof extends AppCompatActivity {
 
         canvasVP = findViewById(R.id.VPCanvasView);
 
-        vpcanvas = new VPCanvas(this);
+        vpcanvas = new VPCanvas(this, ProductNum);
 
         prod = new Product(0,"","","","",false,false);
 
