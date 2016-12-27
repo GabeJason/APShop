@@ -24,18 +24,22 @@ public class VPCanvas extends View {
     Bitmap.Config config = Bitmap.Config.ARGB_8888;
     int[][] permitSq = new int[180][200]; //left corner is x 200   y 140
     BitmapFactory.Options opts = new BitmapFactory.Options();
-    int[] logoBit;
-    int[] backBit;
+    int[][] logoBit;
+    int[] logoBitTemp;
+    int[][] backBit;
+    int[] backBitTemp;
     boolean logoLoaded = false;
     BitmapDrawable bd;
     boolean loaded;
     int logoWidth;
     int logoHeight;
     int ProductNum;
+    int[] placement;
 
     public VPCanvas(Context context, int product){
         super(context);
         ProductNum = product;
+        placement = logoPlacement(product);
     }
 
     public VPCanvas(Context context, AttributeSet attrs) {
@@ -321,13 +325,28 @@ public class VPCanvas extends View {
     }
 
     public boolean setLogo(Bitmap map){
-        logoBit = new int[map.getWidth() * map.getHeight()];
-        map.getPixels(logoBit, 0, map.getWidth(), 0, 0, map.getWidth(), map.getHeight());
+
 
         logoWidth = map.getWidth();
         logoHeight = map.getHeight();
 
         logoLoaded =true;
+
+        Bitmap scaled = scaleBit(map);
+
+        logoBitTemp = new int[scaled.getWidth() * scaled.getHeight()];
+        scaled.getPixels(logoBitTemp, 0, scaled.getWidth(), 0, 0, scaled.getWidth(), scaled.getHeight());
+
+        logoBit = new int[scaled.getHeight()][scaled.getWidth()];
+
+        int count = 0;
+        for (int i = 0; i < scaled.getHeight(); i++){
+            for (int p = 0; p < scaled.getWidth(); p++){
+                logoBit[i][p] = logoBitTemp[count];
+                count++;
+            }
+        }
+
         loaded = setView();
         while (!loaded){}
         loaded = false;
@@ -335,8 +354,20 @@ public class VPCanvas extends View {
     }
 
     public boolean setBack(Bitmap map){
-        backBit = new int[map.getWidth() * map.getHeight()];
-        map.getPixels(backBit, 0, map.getWidth(), 0, 0, map.getWidth(), map.getHeight());
+        backBitTemp = new int[map.getWidth() * map.getHeight()];
+        map.getPixels(backBitTemp, 0, map.getWidth(), 0, 0, map.getWidth(), map.getHeight());
+
+        backBit = new int[map.getHeight()][map.getWidth()];
+
+        int count = 0;
+        for (int i = 0; i < map.getHeight(); i++){
+            for (int p = 0; p < map.getWidth(); p++){
+                backBit[i][p] = backBitTemp[count];
+                count++;
+            }
+        }
+
+
         loaded = setView();
         while (!loaded){}
         loaded = false;
@@ -345,14 +376,91 @@ public class VPCanvas extends View {
 
     public boolean setView(){
         if(logoLoaded){
-            Bitmap backImg = Bitmap.createBitmap(backBit, 1000, 1000, config);
+
+            int ioffset = placement[2] / 1000;
+            int poffset = placement[2] % 1000;
+
+            poffset = poffset + ((500 - (logoBit[0].length / 2)) - poffset);
+
+            for (int i = 0; i < logoBit.length; i++){
+                for (int p = 0; p < logoBit[0].length; p++){
+                    backBit[i + ioffset][p + poffset] = logoBit[i][p];
+                }
+            }
+
+            int count =0;
+            for (int i = 0; i < backBit.length; i++){
+                for (int p = 0; p < backBit[0].length; p++){
+                    backBitTemp[count] = backBit[i][p];
+                    count++;
+                }
+            }
+
+            Bitmap backImg = Bitmap.createBitmap(backBitTemp, 1000, 1000, config);
             bd = new BitmapDrawable(getContext().getResources(), backImg);
             return true;
         }else{
-            Bitmap backImg = Bitmap.createBitmap(backBit, 1000, 1000, config);
+            Bitmap backImg = Bitmap.createBitmap(backBitTemp, 1000, 1000, config);
             bd = new BitmapDrawable(getContext().getResources(), backImg);
             return true;
         }
+    }
+
+    public Bitmap scaleBit(Bitmap map){
+        int maxSize = 0;
+
+        if (placement[0] < placement[1]){
+            maxSize = placement[0];
+        }else if(placement[0] >= placement[1]){
+            maxSize = placement[1];
+        }
+
+        Log.i("MaxSize", Integer.toString(maxSize));
+
+        int outWidth = 0;
+        int outHeight = 0;
+        int inWidth = map.getWidth();
+        Log.i("inWidth", Integer.toString(inWidth));
+        int inHeight = map.getHeight();
+        Log.i("inHeight", Integer.toString(inHeight));
+        if (placement[0] <= placement[1]) {
+            if (inWidth > inHeight) {
+                outWidth = maxSize;
+                outHeight = (inHeight * maxSize) / inWidth;
+                Log.i("outWidth", Integer.toString(outWidth));
+                Log.i("outHeight", Integer.toString(outHeight));
+            } else {
+                outHeight = maxSize;
+                outWidth = (inWidth * maxSize) / inHeight;
+
+                Log.i("outWidth", Integer.toString(outWidth));
+                Log.i("outHeight", Integer.toString(outHeight));
+            }
+        }else if(placement[0] > placement[1]){
+            if (inWidth > inHeight) {
+                maxSize = placement[0];
+                outWidth = maxSize;
+                float flHeight = ((float)maxSize / (float)inWidth) * inHeight;
+                outHeight = (int)flHeight;
+                if (outHeight > placement[1]){
+                    flHeight = (float)placement[1] / (float)outHeight;
+                    outWidth = (int)(outWidth * flHeight);
+                    outHeight = (int)(outHeight * flHeight);
+                }
+                Log.i("outWidth", Integer.toString(outWidth));
+                Log.i("outHeight", Integer.toString(outHeight));
+            } else {
+                outHeight = maxSize;
+                outWidth = (inWidth * maxSize) / inHeight;
+
+                Log.i("outWidth", Integer.toString(outWidth));
+                Log.i("outHeight", Integer.toString(outHeight));
+            }
+        }
+
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(map, outWidth, outHeight, false);
+
+        return resizedBitmap;
     }
 
     public BitmapDrawable getBack(){
