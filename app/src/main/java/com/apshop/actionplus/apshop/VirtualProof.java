@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -282,23 +283,32 @@ public class VirtualProof extends AppCompatActivity {
             }
         });
 
-        requestProof.setOnClickListener(new View.OnClickListener() {
+        requestProof.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                try {
-                    String emailContent = "I would like to see a proof of " + productTitle + " in the color    with this image";
-                    Intent email = new Intent(Intent.ACTION_SEND);
-                    email.setType("plain/text");
-                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@actionplusideas.com"});
-                    email.putExtra(Intent.EXTRA_SUBJECT, "Proof Request");
-                    email.putExtra(Intent.EXTRA_TEXT, emailContent);
-                    if (imgUri != null) {
-                        email.putExtra(Intent.EXTRA_STREAM, imgUri);
-                    }
-                    startActivity(Intent.createChooser(email, "Send email..."));
-                } catch (ActivityNotFoundException activityException) {
-                    Log.e("Sending a Email", "Email failed", activityException);
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        requestProof.setTextColor(Color.parseColor("#003b5d"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        requestProof.setTextColor(Color.parseColor("#5cac00"));
+                        try {
+                            String emailContent = "I would like to see a proof of " + productTitle + " in the color    with this image";
+                            Intent email = new Intent(Intent.ACTION_SEND);
+                            email.setType("plain/text");
+                            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@actionplusideas.com"});
+                            email.putExtra(Intent.EXTRA_SUBJECT, "Proof Request");
+                            email.putExtra(Intent.EXTRA_TEXT, emailContent);
+                            if (imgUri != null) {
+                                email.putExtra(Intent.EXTRA_STREAM, imgUri);
+                            }
+                            startActivity(Intent.createChooser(email, "Send email..."));
+                        } catch (ActivityNotFoundException activityException) {
+                            Log.e("Sending a Email", "Email failed", activityException);
+                        }
+                        break;
                 }
+                return false;
             }
         });
     }
