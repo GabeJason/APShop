@@ -58,8 +58,8 @@
 
         <Button
             android:layout_height="40dp"
-            android:layout_width="wrap_content"
-            android:text="Virtual Proof"
+            android:layout_width="50dp"
+            android:background="@drawable/virtualsample"
             android:layout_margin="10dp"
             android:id="@+id/virtualProofPFVBTN"
             android:layout_toLeftOf="@id/vrmodePFVBTN"

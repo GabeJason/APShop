@@ -7,8 +7,8 @@ android {
         applicationId "com.apshop.actionplus.apshop"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 3
-        versionName "0.92"
+        versionCode 4
+        versionName "0.93"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

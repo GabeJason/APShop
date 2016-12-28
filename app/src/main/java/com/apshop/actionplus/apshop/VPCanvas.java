@@ -32,12 +32,14 @@ public class VPCanvas extends View {
     int imgNum;
     boolean whiteSpace;
     Bitmap logoBitmapOrg;
+    boolean first;
 
     public VPCanvas(Context context, int product){
         super(context);
         ProductNum = product;
         placement = logoPlacement(product);
         whiteSpace = true;
+        first = false;
     }
 
     public VPCanvas(Context context, AttributeSet attrs) {
@@ -87,7 +89,7 @@ public class VPCanvas extends View {
             }
         }
 
-        if (logoLoaded){
+        if (logoLoaded && !first){
             loaded = setLogo(logoBitmapOrg);
             while (!loaded){}
             loaded = false;
@@ -133,6 +135,7 @@ public class VPCanvas extends View {
 
             Bitmap backImg = Bitmap.createBitmap(backBitTemp, 1000, 1000, config);
             bd = new BitmapDrawable(getContext().getResources(), backImg);
+            first =true;
             return true;
         }else{
             Bitmap backImg = Bitmap.createBitmap(backBitTemp, 1000, 1000, config);
@@ -202,7 +205,7 @@ public class VPCanvas extends View {
         boolean changed = false;
         for (int i = 0; i < logo.length; i++){
             for(int p = 0; p < logo[0].length; p++){
-                if(whiteBack){
+                if(whiteBack && !first){
                     if(logo[i][p] == Color.WHITE){
                         logo[i][p] = Color.TRANSPARENT;
                         changed = true;

@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Virtual Proof"
+            android:text="Virtual Sample"
             android:textSize="30sp"
             android:textColor="@color/whitecolor"
             android:paddingLeft="10dp"
@@ -169,7 +169,11 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Request Better Proof"
+                android:text="REQUEST PROOF"
+                android:background="@color/whitecolor"
+                android:textColor="@color/greenAccent"
+                android:textSize="32sp"
+                android:padding="10dp"
                 android:id="@+id/VPreqBetProof"/>
 
         </LinearLayout>
@@ -184,7 +188,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload Image"
+                android:background="@drawable/uploadlogo"
                 android:id="@+id/VPuploadImage"/>
 
             <CheckBox

@@ -349,6 +349,7 @@ public class ProductFullView extends AppCompatActivity {
             public void onClick(View v) {
                 Intent vpIntent = new Intent(getApplicationContext(), VirtualProof.class);
                 vpIntent.putExtra("Item",Integer.toString(ProductNum));
+                vpIntent.putExtra("ProductTitle",pTitle);
                 startActivity(vpIntent);
             }
         });
