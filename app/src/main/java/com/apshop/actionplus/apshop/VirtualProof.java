@@ -81,27 +81,13 @@ public class VirtualProof extends AppCompatActivity {
                 colorOps[i].setBackgroundColor(Color.parseColor(colors[i]));
                 colorOps[i].setVisibility(View.VISIBLE);
             }
-            imgNum = 0;
-            back = BitmapFactory.decodeResource(getResources(), images[0], opts);
-            loaded = vpcanvas.setBack(back, imgNum);
-            isEnabledBtn(false);
-            while (!loaded){}
-            loaded =false;
-            isEnabledBtn(true);
-            canvasVP.setBackground(vpcanvas.getBack());
+            colorPickBtns(0);
         }
 
         colorOps[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 0;
-                back = BitmapFactory.decodeResource(getResources(), images[0], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(0);
             }
         });
 
@@ -109,14 +95,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 1;
-                back = BitmapFactory.decodeResource(getResources(), images[1], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(1);
             }
         });
 
@@ -124,14 +103,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 2;
-                back = BitmapFactory.decodeResource(getResources(), images[2], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(2);
             }
         });
 
@@ -139,14 +111,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 3;
-                back = BitmapFactory.decodeResource(getResources(), images[3], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(3);
             }
         });
 
@@ -154,14 +119,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 4;
-                back = BitmapFactory.decodeResource(getResources(), images[4], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(4);
             }
         });
 
@@ -169,14 +127,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[5].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 5;
-                back = BitmapFactory.decodeResource(getResources(), images[5], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(5);
             }
         });
 
@@ -184,14 +135,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[6].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 6;
-                back = BitmapFactory.decodeResource(getResources(), images[6], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(6);
             }
         });
 
@@ -199,14 +143,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[7].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 7;
-                back = BitmapFactory.decodeResource(getResources(), images[7], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(7);
             }
         });
 
@@ -214,14 +151,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[8].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 8;
-                back = BitmapFactory.decodeResource(getResources(), images[8], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(8);
             }
         });
 
@@ -229,14 +159,7 @@ public class VirtualProof extends AppCompatActivity {
         colorOps[9].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imgNum = 9;
-                back = BitmapFactory.decodeResource(getResources(), images[9], opts);
-                loaded = vpcanvas.setBack(back, imgNum);
-                isEnabledBtn(false);
-                while (!loaded){}
-                loaded =false;
-                isEnabledBtn(true);
-                canvasVP.setBackground(vpcanvas.getBack());
+                colorPickBtns(9);
             }
         });
 
@@ -337,6 +260,17 @@ public class VirtualProof extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void colorPickBtns(int i){
+        imgNum = i;
+        back = BitmapFactory.decodeResource(getResources(), images[i], opts);
+        loaded = vpcanvas.setBack(back, imgNum);
+        isEnabledBtn(false);
+        while (!loaded){}
+        loaded =false;
+        isEnabledBtn(true);
+        canvasVP.setBackground(vpcanvas.getBack());
     }
 
     public void isEnabledBtn(boolean is){

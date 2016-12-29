@@ -210,9 +210,9 @@ public class VPCanvas extends View {
                         logo[i][p] = Color.TRANSPARENT;
                         changed = true;
                     }else {
-                        for (int t = 240; t < 256; t++) {
-                            for (int q = 240; q < 256; q++) {
-                                for (int r = 240; r < 256; r++) {
+                        for (int t = 240; t < 255; t++) {
+                            for (int q = 240; q < 255; q++) {
+                                for (int r = 240; r < 255; r++) {
                                     if (logo[i][p] == Color.rgb(t, q, r)) {
                                         logo[i][p] = Color.TRANSPARENT;
                                         changed = true;
