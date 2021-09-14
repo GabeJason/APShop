@@ -1,4 +1,4 @@
-# APShop
+# ![app icon](https://github.com/GabeJason/APShop/blob/WorkingModel/app/src/main/res/mipmap-mdpi/apshopicon.png?raw=true) APShop
 
 ### Native Android App
 
